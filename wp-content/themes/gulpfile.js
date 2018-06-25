@@ -12,7 +12,7 @@ mixins = require('postcss-mixins'),
 colorFunctions = require('postcss-color-function');
 
 gulp.task('styles', function() {
-  return gulp.src(settings.themeLocation + 'css/style.css')
+  return gulp.src(settings.themeLocation + 'assets/css/style.css')
     .pipe(postcss([cssImport, mixins, cssvars, nested, rgba, colorFunctions, autoprefixer]))
     .on('error', (error) => console.log(error.toString()))
     .pipe(gulp.dest(settings.themeLocation));
@@ -39,8 +39,8 @@ gulp.task('watch', function() {
   gulp.watch('./**/*.php', function() {
     browserSync.reload();
   });
-  gulp.watch(settings.themeLocation + 'css/**/*.css', ['waitForStyles']);
-  gulp.watch([settings.themeLocation + 'js/modules/*.js', settings.themeLocation + 'js/scripts.js'], ['waitForScripts']);
+  gulp.watch(settings.themeLocation + 'assets/css/**/*.css', ['waitForStyles']);
+  gulp.watch([settings.themeLocation + 'assets/js/modules/*.js', settings.themeLocation + 'assets/js/scripts.js'], ['waitForScripts']);
 });
 
 gulp.task('waitForStyles', ['styles'], function() {

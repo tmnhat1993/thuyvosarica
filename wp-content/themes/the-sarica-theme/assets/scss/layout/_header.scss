@@ -1,0 +1,20 @@
+#banner{
+  background-image: url(../img/banner-bg.jpg);
+  background-size: cover;
+  background-position: center center;
+  margin-bottom: 20px;
+  color: #fff;
+  
+  .banner{
+    padding: 120px 55px 120px;
+  }
+
+  .banner__content{
+    padding: 62px 45px;
+    background-color: rgba(25,25,25,0.6);
+
+    .banner__call-to-action{
+      margin-top: 35px;
+    }
+  }
+}

@@ -1,1 +1,6 @@
-My name is Nihato
+<?php
+    get_header(); ?>
+
+<?php
+    get_footer();
+?>

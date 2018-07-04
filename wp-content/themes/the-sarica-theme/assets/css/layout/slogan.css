@@ -1,0 +1,48 @@
+.slogan-section {
+  padding: 60px 0 20px; }
+  .slogan-section .slogan-holder {
+    position: relative; }
+    .slogan-section .slogan-holder .slogan-logo {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      border-radius: 40px;
+      border: 4px solid white; }
+      .slogan-section .slogan-holder .slogan-logo .logo-img {
+        width: 86px;
+        height: 86px;
+        position: relative;
+        top: -3px;
+        left: -3px; }
+        .slogan-section .slogan-holder .slogan-logo .logo-img img {
+          max-width: 140%;
+          min-height: 100%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%); }
+    .slogan-section .slogan-holder .slogan-row {
+      overflow: hidden; }
+      .slogan-section .slogan-holder .slogan-row .slogan-item {
+        color: #fff;
+        padding: 20px;
+        width: 50%;
+        float: left; }
+        .slogan-section .slogan-holder .slogan-row .slogan-item.red-item {
+          background-color: #e84118; }
+        .slogan-section .slogan-holder .slogan-row .slogan-item.black-item {
+          background-color: #444; }
+        .slogan-section .slogan-holder .slogan-row .slogan-item .slogan-item__title {
+          font-size: 1.25em;
+          font-weight: 600;
+          padding-bottom: 15px;
+          margin-bottom: 15px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+          text-align: center; }
+        .slogan-section .slogan-holder .slogan-row .slogan-item .slogan-item__content p {
+          opacity: 0.8; }
+          .slogan-section .slogan-holder .slogan-row .slogan-item .slogan-item__content p:last-child {
+            margin-bottom: 0; }

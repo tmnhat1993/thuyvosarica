@@ -1,0 +1,171 @@
+@charset "UTF-8";
+.product-detail {
+  /* Main Row Content */
+  /* Main Row Content - END */
+  /* Product Sub row content */
+  /* Product Sub row content - END */ }
+  .product-detail .product-detail__main-row {
+    padding: 50px 0 40px;
+    background-color: #f9f9f9;
+    /* Typical Element */
+    /* Typical Element - END */ }
+    .product-detail .product-detail__main-row .product-title {
+      border-bottom: 1px solid #ddd; }
+      .product-detail .product-detail__main-row .product-title .product-title__title {
+        font-size: 1.75rem;
+        padding: 0 0 5px;
+        margin-bottom: 0px;
+        line-height: 2rem; }
+      .product-detail .product-detail__main-row .product-title .product-title__sub-title,
+      .product-detail .product-detail__main-row .product-title .breadcrumb {
+        background-color: transparent;
+        padding: 0; }
+    .product-detail .product-detail__main-row .product-detail .product-detail-list {
+      list-style: none;
+      text-indent: 0;
+      padding: 0;
+      overflow: hidden; }
+      .product-detail .product-detail__main-row .product-detail .product-detail-list li {
+        font-size: 13px;
+        width: 50%;
+        float: left; }
+    .product-detail .product-detail__main-row .detail-title {
+      margin-bottom: 0; }
+    .product-detail .product-detail__main-row .product-colors {
+      margin-bottom: 10px; }
+      .product-detail .product-detail__main-row .product-colors .color-item {
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        padding: 4px;
+        border: 1px solid #aaa;
+        position: relative;
+        margin-right: 5px;
+        cursor: pointer; }
+        .product-detail .product-detail__main-row .product-colors .color-item:after {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 18px;
+          height: 18px;
+          left: 3px;
+          top: 3px;
+          background-color: #333;
+          transition: all ease-out 150ms 20ms; }
+        .product-detail .product-detail__main-row .product-colors .color-item:before {
+          content: '';
+          position: absolute;
+          bottom: 16px;
+          left: 16px;
+          background-color: #eee;
+          border: 1px solid #ccc;
+          padding: 0 7px;
+          z-index: 2;
+          font-weight: 600;
+          font-size: 13px;
+          opacity: 0;
+          visibility: hidden;
+          transition: all ease-out 100ms 10ms;
+          white-space: nowrap; }
+        .product-detail .product-detail__main-row .product-colors .color-item:hover:before {
+          opacity: 1;
+          visibility: visible; }
+        .product-detail .product-detail__main-row .product-colors .color-item.black:after {
+          background-color: #2f3640; }
+        .product-detail .product-detail__main-row .product-colors .color-item.black:before {
+          content: 'Đen'; }
+        .product-detail .product-detail__main-row .product-colors .color-item.red:after {
+          background-color: #e84118; }
+        .product-detail .product-detail__main-row .product-colors .color-item.red:before {
+          content: 'Đỏ'; }
+        .product-detail .product-detail__main-row .product-colors .color-item.orange:after {
+          background-color: #f0932b; }
+        .product-detail .product-detail__main-row .product-colors .color-item.orange:before {
+          content: 'Cam'; }
+        .product-detail .product-detail__main-row .product-colors .color-item.yellow:after {
+          background-color: #fbc531; }
+        .product-detail .product-detail__main-row .product-colors .color-item.yellow:before {
+          content: 'Vàng'; }
+        .product-detail .product-detail__main-row .product-colors .color-item.green:after {
+          background-color: #6ab04c; }
+        .product-detail .product-detail__main-row .product-colors .color-item.green:before {
+          content: 'Xanh lá'; }
+        .product-detail .product-detail__main-row .product-colors .color-item.blue:after {
+          background-color: #686de0; }
+        .product-detail .product-detail__main-row .product-colors .color-item.blue:before {
+          content: 'Xanh biển'; }
+        .product-detail .product-detail__main-row .product-colors .color-item.white:after {
+          background-color: #dcdde1; }
+        .product-detail .product-detail__main-row .product-colors .color-item.white:before {
+          content: 'Trắng'; }
+    .product-detail .product-detail__main-row .product-price {
+      margin: 10px 0 5px;
+      padding-bottom: 10px; }
+      .product-detail .product-detail__main-row .product-price .old-price {
+        display: block;
+        text-decoration: line-through;
+        margin: 0;
+        line-height: 1.5rem; }
+      .product-detail .product-detail__main-row .product-price .new-price {
+        display: block;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        font-weight: 600;
+        color: #e84118; }
+    .product-detail .product-detail__main-row .product-call-to-action a.buynow-btn,
+    .product-detail .product-detail__main-row .product-call-to-action .buynow-btn {
+      color: white;
+      background-color: #e84118;
+      padding: 0 40px;
+      line-height: 40px;
+      height: 40px;
+      display: inline-block;
+      width: auto;
+      font-size: 1.05rem; }
+      .product-detail .product-detail__main-row .product-call-to-action a.buynow-btn:hover,
+      .product-detail .product-detail__main-row .product-call-to-action .buynow-btn:hover {
+        text-decoration: none; }
+    .product-detail .product-detail__main-row .product-detail__image-container {
+      padding: 0; }
+      .product-detail .product-detail__main-row .product-detail__image-container .image-view {
+        padding-right: 30px; }
+        .product-detail .product-detail__main-row .product-detail__image-container .image-view .img-item {
+          overflow: hidden; }
+        .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__thumbnail-img {
+          padding: 0; }
+          .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__thumbnail-img .thumb-nail-item {
+            height: 94px;
+            width: 100%;
+            margin: 8px auto;
+            position: relative;
+            padding: 0;
+            cursor: pointer;
+            border: 1px solid #ddd; }
+            .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__thumbnail-img .thumb-nail-item:first-child {
+              margin-top: 0; }
+            .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__thumbnail-img .thumb-nail-item.active {
+              border: 1px solid #e84118; }
+            .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__thumbnail-img .thumb-nail-item img {
+              min-width: 100%;
+              max-width: 125%;
+              min-height: 100%;
+              max-height: 100%;
+              position: absolute; }
+        .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__main-img .main-img-item {
+          height: 400px;
+          overflow: hidden;
+          position: relative; }
+          .product-detail .product-detail__main-row .product-detail__image-container .image-view .image-view__main-img .main-img-item img {
+            max-width: 130%;
+            min-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+  .product-detail .product-detail__sub-content {
+    padding: 0;
+    margin-bottom: 50px; }
+    .product-detail .product-detail__sub-content .row .sub-content__des {
+      padding-left: 0; }

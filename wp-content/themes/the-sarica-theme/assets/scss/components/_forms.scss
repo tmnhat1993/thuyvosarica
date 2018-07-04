@@ -1,0 +1,12 @@
+textarea{
+  resize: none;
+}
+
+a{
+  color: #e84118;
+
+  &:hover{
+    color: #e84118;
+    text-decoration: underline;
+  }
+}

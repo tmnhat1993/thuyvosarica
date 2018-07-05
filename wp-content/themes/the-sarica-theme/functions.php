@@ -1,5 +1,6 @@
 <?php
 
+//<editor-fold desc="Enqueue Scripts Files">
 add_action('wp_enqueue_scripts', 'the_sarica_files');
 function the_sarica_files() {
 
@@ -45,4 +46,13 @@ function the_sarica_files() {
         NULL, microtime());
 
 }
+//</editor-fold>
+
+//<editor-fold desc="Theme Feature">
+add_action('after_setup_theme', 'sarica_theme_feature');
+function sarica_theme_feature(){
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+}
+//</editor-fold>
 ?>

@@ -55,4 +55,11 @@ function sarica_theme_feature(){
     add_theme_support('post-thumbnails');
 }
 //</editor-fold>
+
+function process_price($price){
+    $temp_price = str_split(''.$price, 3);
+    $new_price = implode(',', $temp_price);
+
+    return $new_price;
+}
 ?>

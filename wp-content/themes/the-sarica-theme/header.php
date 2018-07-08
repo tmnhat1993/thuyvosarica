@@ -26,7 +26,9 @@
 
                 <div class="col-sm-2 navbar__logo-column">
                     <div class="logo-holder">
-                        <img src="<?php echo get_theme_file_uri('assets/img/logo.png') ?>">
+                        <a href="<?php echo site_url(); ?>">
+                            <img src="<?php echo get_theme_file_uri('assets/img/logo.png') ?>">
+                        </a>
                     </div>
                 </div>
 
@@ -34,10 +36,10 @@
                 <div class="col-sm-10 navbar__menu-column">
                     <ul class="navbar__main-menu">
                         <li class="navbar__main-menu-item">
-                            <a href="#">TRANG CHỦ</a>
+                            <a href="<?php echo site_url(); ?>">TRANG CHỦ</a>
                         </li>
                         <li class="navbar__main-menu-item sub-menu-container">
-                            <a href="#">SẢN PHẨM</a>
+                            <a href="javascript:;">SẢN PHẨM</a>
                             <span class="sub-menu-toggle fa fa-caret-down"></span>
 
                             <ul class="navbar__sub-menu">
@@ -51,11 +53,11 @@
                                             </div>
                                             <div class="col-sm-7 menu-list">
                                                 <div class="navbar__sub-menu__sub-menu-item">
-                                                    <a href="#">Đồng hồ</a>
+                                                    <a href="<?php echo get_post_type_archive_link('watch'); ?>">Đồng hồ</a>
                                                     <p>Đồng hồ từ các thương hiệu thời trang</p>
                                                 </div>
                                                 <div class="navbar__sub-menu__sub-menu-item">
-                                                    <a href="#">Mắt Kính</a>
+                                                    <a href=""<?php echo get_post_type_archive_link('glass'); ?>">Mắt Kính</a>
                                                     <p>Đồng hồ từ các thương hiệu thời trang</p>
                                                 </div>
                                             </div>
@@ -94,10 +96,10 @@
 
                         </li>
                         <li class="navbar__main-menu-item">
-                            <a href="#">TIN TỨC</a>
+                            <a href="<?php echo site_url('blog'); ?>">TIN TỨC</a>
                         </li>
                         <li class="navbar__main-menu-item">
-                            <a href="#">LIÊN HỆ</a>
+                            <a href="<?php echo site_url('contact'); ?>">LIÊN HỆ</a>
                         </li>
                     </ul>
                 </div>

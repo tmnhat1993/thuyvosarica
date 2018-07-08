@@ -77,10 +77,10 @@ while(have_posts()){
                         <div class="product-price">
                             <?php if( $product_sale > 0 ) {
                                 $new_price = $product_price - ($product_price) * $product_sale / 100;
-                                echo '<span class="old-price">'.$product_price.'</span>';
-                                echo '<span class="new-price">'.$new_price.'</span>';
+                                echo '<span class="old-price">'.number_format( $product_price, 0,'', ',' ).' VNĐ</span>';
+                                echo '<span class="new-price">'.number_format(  $new_price, 0,'', ',' ).' VNĐ</span>';
                             } else {
-                                echo '<span class="new-price">'.$product_price.'</span>';
+                                echo '<span class="new-price">'.process_price( $product_price ).'</span>';
                             } ?>
                         </div>
                         <!-- Product Price - END -->

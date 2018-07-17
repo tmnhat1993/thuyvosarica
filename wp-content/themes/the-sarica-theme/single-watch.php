@@ -8,11 +8,23 @@ while(have_posts()){
     $product_sale = get_field('product_sale');
     $product_colors = get_field('product_color');
     $product_quantity = get_field('product_quantity');
-    $product_image_1 = get_field('product_image_1');
-    $product_image_2 = get_field('product_image_2');
-    $product_image_3 = get_field('product_image_3');
-    $product_image_4 = get_field('product_image_4');
+    $product_maintain = get_field('product_maintain');
 
+    $product_extra_detail = array();
+    for ($i = 0; $i < 6; $i++){
+        $tempValue = get_field('product_extra_'.$i);
+        if($tempValue){
+            array_push($product_extra_detail, get_field('product_extra_'.$i));
+        }
+    }
+
+    $imageArray = array();
+    for ($i = 0; $i < 4; $i++){
+        $tempValue = get_field('product_image_'.$i);
+        if($tempValue){
+            array_push($imageArray, get_field('product_image_'.$i));
+        }
+    }
     ?>
 
     <!-- Product Detail Content -->
@@ -30,30 +42,43 @@ while(have_posts()){
                         <!-- Image view component -->
                         <div class="container">
                             <div class="image-view row">
+                                <?php
+                                if(count($imageArray)){ ?>
                                 <!-- Thumbnail image column -->
                                 <div class="image-view__thumbnail-img col-md-2">
-                                    <div class="img-item thumb-nail-item item-1 active">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
-                                    <div class="img-item thumb-nail-item item-2">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
-                                    <div class="img-item thumb-nail-item item-3">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
-                                    <div class="img-item thumb-nail-item item-4">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
+                                    <?php
+                                    foreach($imageArray as $key=>$value) {
+                                        if( $key == 0 ){
+                                            echo '<div class="img-item thumb-nail-item item-1 active">';
+                                            echo '<img src="'. $value[url] .'">';
+                                            echo '</div>';
+                                        } else {
+                                            echo '<div class="img-item thumb-nail-item item-'.($key + 1).'">';
+                                            echo '<img src="'. $value[url] .'">';
+                                            echo '</div>';
+                                        }
+                                    } ?>
                                 </div>
                                 <!-- Main image column - END -->
 
                                 <!-- Main image column -->
                                 <div class="image-view__main-img col-md-10">
                                     <div class="img-item main-img-item">
-                                        <img src="img/IMG_6955.JPG">
+                                        <img src="<?php echo $imageArray[0][url]; ?>">
                                     </div>
                                 </div>
                                 <!-- Main image column - END -->
+                                <?php
+                                } else {
+                                    ?>
+                                    <!-- Main image column -->
+                                    <div class="image-view__main-img col-md-12">
+                                        <div class="img-item main-img-item">
+                                            <img src="<?php echo get_theme_file_uri('assets/img/img_not_available.jpg'); ?>">
+                                        </div>
+                                    </div>
+                                    <!-- Main image column - END -->
+                                <?php } ?>
                             </div>
                         </div>
                         <!-- Image view component - END -->
@@ -100,11 +125,15 @@ while(have_posts()){
                         <div class="product-detail">
                             <p class="detail-title"><b>Chi Tiết</b></p>
                             <ul class="product-detail-list">
-                                <li>Size: <b>30mm</b></li>
-                                <li><b>Dây da</b></li>
-                                <li><b>Mặt kính sapphire</b></li>
-                                <li>Chống nước: <b>3ATM</b></li>
-                                <li>Bảo hành: <b>6 tháng</b></li>
+                                <?php if($product_maintain){
+                                    echo '<li>Bảo hành <b>'.$product_maintain.'tháng</b></li>';
+                                }
+
+                                if(count($product_extra_detail)){
+                                    foreach($product_extra_detail as $value){
+                                        echo '<li>'.$value.'</li>';
+                                    }
+                                } ?>
                             </ul>
                             <p class="detail-title"><b>Tình trạng</b></p>
                             <ul class="product-detail-list">
@@ -160,6 +189,15 @@ while(have_posts()){
                     <!-- Main Content - END -->
                 </div>
 
+                <?php
+                /* Custom Queries For Lattest Related Product */
+                $extra_sidebar_product = new WP_Query( array (
+                    'post_type' => 'watch',
+                    'posts_per_page' => 3,
+                    'post__not_in' => array(get_the_ID())
+                ))
+                ?>
+
                 <div class="col-sm-4">
                     <!-- News Col Heading -->
                     <div class="custom-heading no-dash disabled-border text-left full-width">
@@ -168,143 +206,107 @@ while(have_posts()){
                     <!-- News Col Heading -->
 
                     <div class="product-column">
-                        <!-- Product Item -->
-                        <div class="product-item item-small">
 
-                            <!-- Product Image -->
-                            <div class="product-item__img">
-                                <img src="img/IMG_6955.JPG"
-                                     alt="Card image cap">
+                        <?php
+                        if($extra_sidebar_product->have_posts()) {
+                            while ($extra_sidebar_product->have_posts()){
+                                $extra_sidebar_product->the_post();
+                                $extra_price = get_field('product_price');
+                                $extra_sale = get_field('product_sale');
+                                $extra_link = get_permalink();
+                                $extra_main_image = get_theme_file_uri('assets/img/IMG_6955.JPG');
+                                $extra_detail = array();
+                                $extra_maintain = get_field('product_maintain');
 
-                                <!-- Product hidden content -->
-                                <div class="product-item__hidden-content">
-                                    <ul class="product-item__hidden-content__detail">
-                                        <li>Size: <b>30mm</b></li>
-                                        <li><b>Dây da</b></li>
-                                        <li><b>Mặt kính sapphire</b></li>
-                                        <li>Chống nước: <b>3ATM</b></li>
-                                        <li>Bảo hành: <b>6 tháng</b></li>
-                                    </ul>
+                                for($i = 1; $i < 4; $i++){
+                                    $tempValue = get_field('product_image_'.$i);
+                                    if( $tempValue ){
+                                        $extra_main_image = $tempValue[url];
+                                    }
+                                }
+
+                                for($i = 1; $i < 6; $i++){
+                                    $tempValue = get_field('product_extra_'.$i);
+                                    if($tempValue){
+                                        array_push($extra_detail, $tempValue);
+                                    }
+                                }
+                                ?>
+                                <!-- Product Item -->
+                                <div class="product-item item-small">
+
+                                    <!-- Product Image -->
+                                    <div class="product-item__img">
+                                        <img src="<?php echo $extra_main_image; ?>"
+                                             alt="Card image cap">
+
+                                        <!-- Product hidden content -->
+                                        <div class="product-item__hidden-content">
+                                            <ul class="product-item__hidden-content__detail">
+                                                <?php
+                                                    if($extra_maintain > 0){
+                                                        echo '<li>Bảo hành: <b>'.$extra_maintain.' tháng</b></li>';
+                                                    }
+                                                ?>
+
+                                                <?php
+                                                    if(count($extra_detail)){
+                                                        foreach($extra_detail as $value){
+                                                            echo '<li>'.$value.'</li>';
+                                                        }
+                                                    }
+                                                ?>
+                                            </ul>
+                                        </div>
+                                        <!-- Product hidden content -->
+
+                                    </div>
+                                    <!-- Product Image - end -->
+
+                                    <!-- Product item content -->
+                                    <div class="product-item__content">
+                                        <!-- Product name -->
+                                        <h4 class="product-item__content__title-content">
+                                            <?php the_title(); ?>
+                                        </h4><!-- Product name -->
+
+                                        <?php
+                                        if( $extra_sale > 0 ) {
+                                            $new_price = $extra_price - ($extra_price) * $extra_sale / 100; ?>
+
+                                            <!-- Product main content -->
+                                            <p class="product-item__content__sub-content">
+                                                <?php echo number_format( $extra_price, 0,'', ',' ); ?> VNĐ
+                                            </p><!-- Product main content --><!-- Product main content -->
+                                            <p class="product-item__content__main-content">
+                                                <?php echo number_format($new_price, 0, '',','); ?> VNĐ
+                                            </p><!-- Product main content -->
+
+                                            <?php
+                                        } else { ?>
+                                            <!-- Product main content -->
+                                            <p class="product-item__content__main-content">
+                                                <?php echo number_format( $extra_price , 0, '', ','); ?> VNĐ
+                                            </p><!-- Product main content -->
+                                        <?php } ?>
+
+                                    </div>
+                                    <!-- Product item content - END -->
+
                                 </div>
-                                <!-- Product hidden content -->
-
-                            </div>
-                            <!-- Product Image - end -->
-
-                            <!-- Product item content -->
-                            <div class="product-item__content">
-                                <!-- Product name -->
-                                <h4 class="product-item__content__title-content">
-                                    Product name num 1
-                                </h4><!-- Product name -->
-
-                                <!-- Product main content -->
-                                <p class="product-item__content__sub-content">
-                                    Sub information
-                                </p><!-- Product main content -->
-
-                                <!-- Product main content -->
-                                <p class="product-item__content__main-content">
-                                    300.000 VND
-                                </p><!-- Product main content -->
-                            </div>
-                            <!-- Product item content - END -->
-
-                        </div>
-                        <!-- Product item - End -->
-
-                        <!-- Product Item -->
-                        <div class="product-item item-small">
-
-                            <!-- Product Image -->
-                            <div class="product-item__img">
-                                <img src="img/IMG_6955.JPG"
-                                     alt="Card image cap">
-
-                                <!-- Product hidden content -->
-                                <div class="product-item__hidden-content">
-                                    <ul class="product-item__hidden-content__detail">
-                                        <li>Size: <b>30mm</b></li>
-                                        <li><b>Dây da</b></li>
-                                        <li><b>Mặt kính sapphire</b></li>
-                                        <li>Chống nước: <b>3ATM</b></li>
-                                        <li>Bảo hành: <b>6 tháng</b></li>
-                                    </ul>
-                                </div>
-                                <!-- Product hidden content -->
-
-                            </div>
-                            <!-- Product Image - end -->
-
-                            <!-- Product item content -->
-                            <div class="product-item__content">
-                                <!-- Product name -->
-                                <h4 class="product-item__content__title-content">
-                                    Product name num 1
-                                </h4><!-- Product name -->
-
-                                <!-- Product main content -->
-                                <p class="product-item__content__sub-content">
-                                    Sub information
-                                </p><!-- Product main content -->
-
-                                <!-- Product main content -->
-                                <p class="product-item__content__main-content">
-                                    300.000 VND
-                                </p><!-- Product main content -->
-                            </div>
-                            <!-- Product item content - END -->
-
-                        </div>
-                        <!-- Product item - End -->
-
-                        <!-- Product Item -->
-                        <div class="product-item item-small">
-
-                            <!-- Product Image -->
-                            <div class="product-item__img">
-                                <img src="img/IMG_6955.JPG"
-                                     alt="Card image cap">
-
-                                <!-- Product hidden content -->
-                                <div class="product-item__hidden-content">
-                                    <ul class="product-item__hidden-content__detail">
-                                        <li>Size: <b>30mm</b></li>
-                                        <li><b>Dây da</b></li>
-                                        <li><b>Mặt kính sapphire</b></li>
-                                        <li>Chống nước: <b>3ATM</b></li>
-                                        <li>Bảo hành: <b>6 tháng</b></li>
-                                    </ul>
-                                </div>
-                                <!-- Product hidden content -->
-
-                            </div>
-                            <!-- Product Image - end -->
-
-                            <!-- Product item content -->
-                            <div class="product-item__content">
-                                <!-- Product name -->
-                                <h4 class="product-item__content__title-content">
-                                    Product name num 1
-                                </h4><!-- Product name -->
-
-                                <!-- Product main content -->
-                                <p class="product-item__content__sub-content">
-                                    Sub information
-                                </p><!-- Product main content -->
-
-                                <!-- Product main content -->
-                                <p class="product-item__content__main-content">
-                                    300.000 VND
-                                </p><!-- Product main content -->
-                            </div>
-                            <!-- Product item content - END -->
-
-                        </div>
-                        <!-- Product item - End -->
+                                <!-- Product item - End -->
+                                <?php
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
                 <!-- Product Description - END -->
+
+                <?php
+                    wp_reset_postdata();
+                ?>
+
             </div>
             <!-- Row - END -->
 

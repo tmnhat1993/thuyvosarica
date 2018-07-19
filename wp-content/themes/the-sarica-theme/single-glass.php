@@ -50,11 +50,11 @@ while(have_posts()){
                                         foreach($imageArray as $key=>$value) {
                                             if( $key == 0 ){
                                                 echo '<div class="img-item thumb-nail-item item-1 active">';
-                                                echo '<img src="'. $value[url] .'">';
+                                                echo '<img src="'. $value['url'] .'">';
                                                 echo '</div>';
                                             } else {
                                                 echo '<div class="img-item thumb-nail-item item-'.($key + 1).'">';
-                                                echo '<img src="'. $value[url] .'">';
+                                                echo '<img src="'. $value['url'] .'">';
                                                 echo '</div>';
                                             }
                                         } ?>
@@ -64,7 +64,7 @@ while(have_posts()){
                                     <!-- Main image column -->
                                     <div class="image-view__main-img col-md-10">
                                         <div class="img-item main-img-item">
-                                            <img src="<?php echo $imageArray[0][url]; ?>">
+                                            <img src="<?php echo $imageArray[0]['url']; ?>">
                                         </div>
                                     </div>
                                     <!-- Main image column - END -->

@@ -39,7 +39,7 @@
                             <a href="<?php echo site_url(); ?>">TRANG CHỦ</a>
                         </li>
                         <li class="navbar__main-menu-item sub-menu-container">
-                            <a href="javascript:;">SẢN PHẨM</a>
+                            <a>SẢN PHẨM</a>
                             <span class="sub-menu-toggle fa fa-caret-down"></span>
 
                             <ul class="navbar__sub-menu">
@@ -67,7 +67,7 @@
                             </ul>
                         </li>
                         <li class="navbar__main-menu-item sub-menu-container">
-                            <a href="#">KHUYẾN MÃI</a>
+                            <a>KHUYẾN MÃI</a>
                             <span class="sub-menu-toggle fa fa-caret-down"></span>
 
                             <ul class="navbar__sub-menu">
@@ -81,11 +81,11 @@
                                             </div>
                                             <div class="col-sm-7 menu-list">
                                                 <div class="navbar__sub-menu__sub-menu-item">
-                                                    <a href="#">Đồng hồ</a>
+                                                    <a href="<?php echo site_url('/discount-watch'); ?>">Đồng hồ</a>
                                                     <p>Đồng hồ từ các thương hiệu thời trang</p>
                                                 </div>
                                                 <div class="navbar__sub-menu__sub-menu-item">
-                                                    <a href="#">Mắt Kính</a>
+                                                    <a href="<?php echo site_url('/discount-glass') ?> ">Mắt Kính</a>
                                                     <p>Đồng hồ từ các thương hiệu thời trang</p>
                                                 </div>
                                             </div>
@@ -96,10 +96,10 @@
 
                         </li>
                         <li class="navbar__main-menu-item">
-                            <a href="<?php echo site_url('blog'); ?>">TIN TỨC</a>
+                            <a href="<?php echo site_url('/blog'); ?>">TIN TỨC</a>
                         </li>
                         <li class="navbar__main-menu-item">
-                            <a href="<?php echo site_url('contact'); ?>">LIÊN HỆ</a>
+                            <a href="<?php echo site_url('/contact'); ?>">LIÊN HỆ</a>
                         </li>
                     </ul>
                 </div>

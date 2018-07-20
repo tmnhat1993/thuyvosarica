@@ -13,7 +13,7 @@ get_header(); ?>
 
                 <!-- Banner content -->
                 <div class="banner__content text-center">
-                    <h1>BANNER TITLE</h1>
+                    <h1>THE SARICA SHOP</h1>
                     <p>
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -21,7 +21,8 @@ get_header(); ?>
                         nisi ut aliquip ex ea commodo consequat."
                     </p>
                     <div class="banner__call-to-action">
-                        <a class="btn btn--custom btn--orange btn--lg btn--square">
+                        <a href="<?php echo site_url('/products'); ?>"
+                           class="btn btn--custom btn--orange btn--lg btn--square">
                             KHÁM PHÁ NGAY
                         </a>
                     </div>
@@ -39,23 +40,30 @@ get_header(); ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card-highlight">
-                        <div class="card-highlight__img-holder">
-                            <img src="<?php echo get_theme_file_uri('assets/img/watch.jpg'); ?>">
+                    <a href="<?php echo get_post_type_archive_link('watch'); ?>">
+                        <div class="card-highlight">
+                            <div class="card-highlight__img-holder">
+                                <img src="<?php echo get_theme_file_uri('assets/img/watch.jpg'); ?>">
+                            </div>
+                            <div class="card-highlight__content-holder">
+                                <h3 class="title">ĐỒNG HỒ</h3>
+                            </div>
                         </div>
-                        <div class="card-highlight__content-holder">
-                            <h3 class="title">ĐỒNG HỒ</h3>
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6">
+
                     <div class="card-highlight">
-                        <div class="card-highlight__img-holder">
-                            <img src="<?php echo get_theme_file_uri('assets/img/glasses.jpg'); ?>">
-                        </div>
-                        <div class="card-highlight__content-holder">
-                            <h3 class="title">MẮT KIẾNG</h3>
-                        </div>
+                        <a href="<?php echo get_post_type_archive_link('glass');?>">
+
+                            <div class="card-highlight__img-holder">
+                                <img src="<?php echo get_theme_file_uri('assets/img/glasses.jpg'); ?>">
+                            </div>
+
+                            <div class="card-highlight__content-holder">
+                                <h3 class="title">MẮT KIẾNG</h3>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -64,867 +72,684 @@ get_header(); ?>
     <!-- Sub banner -->
 
 
-    <!-- Product List -->
-    <div class="products-group section">
-        <div class="container">
+    <!-- New Product -->
+    <?php
+    $newProduct = new WP_Query(array(
+        'post_type' => array('watch', 'glass'),
+        'posts_per_page' => 4,
+        'meta_query' => array(
+            array(
+                'key' => 'product_sale',
+                'compare' => '>',
+                'value' => 0,
+            )
+        )
+    ));
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="custom-heading all-prod">
-                        <h3>
-                            SẢN PHẨM MUA NHIỀU
-                        </h3>
+    if($newProduct->have_posts()){ ?>
+        <div class="products-group section">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-heading all-prod">
+                            <h3>
+                                KHUYẾN MÃI
+                            </h3>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <?php
+                    while($newProduct->have_posts()){
+                        $newProduct->the_post();
 
+                        $productMaintain = get_field('product_maintain');
+                        $productSale = get_field('product_sale');
+                        $productPrice = get_field('product_price');
+                        //<editor-fold desc="Product Image">
+                        $productImage = '';
 
-            <div class="row">
+                        if(has_post_thumbnail(get_the_ID())){
+                            $productImage = get_the_post_thumbnail_url();
+                        } else {
+                            for($i = 1; $i <= 4; $i++){
+                                $tempValue = get_field('product_image_'.$i);
+                                if($tempValue AND $productImage == ''){
+                                    $productImage = $tempValue['url'];
+                                }
+                            }
+                        }
 
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
+                        if($productImage == ''){
+                            if(get_post_type() == 'watch'){
+                                $productImage = get_theme_file_uri('assets/img/IMG_6955.JPG');
+                            } else {
+                                $productImage = get_theme_file_uri('assets/img/IMG_8358.JPG');
+                            }
+                        }
+                        //</editor-fold>
 
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
+                        $productExtra = array();
 
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
+                        for($i = 1; $i <= 6; $i++){
+                            $tempValue = get_field('product_extra_'.$i);
+                            if($tempValue){
+                                array_push($productExtra,$tempValue);
+                            }
+                        }
+
+                        ?>
+                        <div class= "col-md-3 col-sm-6">
+                            <!-- Product Item -->
+                            <div class="product-item">
+
+                                <!-- Product Image -->
+                                <div class="product-item__img">
+                                    <img src="<?php echo $productImage; ?>"
+                                         alt="Card image cap">
+
+                                    <!-- Product hidden content -->
+                                    <div class="product-item__hidden-content">
+                                        <ul class="product-item__hidden-content__detail">
+                                            <?php if($productMaintain > 0){
+                                                echo '<li>Bảo hành: <b>'.$productMaintain.' tháng</b></li>';
+                                            }
+                                            if (count ($productExtra) > 0){
+                                                foreach($productExtra as $value){
+                                                    echo '<li>'.$value.'</li>';
+                                                }
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                    <!-- Product hidden content -->
+
+                                </div>
+                                <!-- Product Image - end -->
+
+                                <!-- Product item content -->
+                                <div class="product-item__content">
+                                    <!-- Product name -->
+                                    <h4 class="product-item__content__title-content">
+                                        <?php the_title(); ?>
+                                    </h4><!-- Product name -->
+
+                                    <?php
+                                    if($productSale > 0){
+                                        ?>
+                                        <!-- Product main content -->
+                                        <p class="product-item__content__sub-content">
+                                <span class="strikethrough">
+                                    <?php echo number_format($productPrice, 0,'', ',' ); ?> VNĐ
+                                </span>
+                                        </p><!-- Product main content -->
+
+                                            <!-- Product main content -->
+                                        <p class="product-item__content__main-content">
+                                            <?php echo number_format(
+                                                $productPrice - ($productPrice) * $productSale/100,
+                                                0,'', ',' ); ?> VNĐ
+                                        </p><!-- Product main content -->
+
+                                        <?php
+                                    } else { ?>
+                                        <!-- Product main content -->
+                                        <p class="product-item__content__main-content">
+                                            <?php echo $productPrice; ?> VNĐ
+                                        </p><!-- Product main content -->
+                                    <?php }
+                                    ?>
+                                </div>
+                                <!-- Product item content - END -->
+
+                                <!-- Product item call to action -->
+                                <div class="product-item__cta">
+                                    <a class="btn btn--custom btn--orange btn--square"
+                                       href="<?php echo get_permalink(); ?>">
+                                        MUA NGAY
+                                    </a>
+                                </div>
+                                <!-- Product item call to action - END -->
+
                             </div>
-                            <!-- Product hidden content -->
-
+                            <!-- Product item - End -->
                         </div>
-                        <!-- Product Image - end -->
+                    <?php } ?>
 
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
+                </div><!-- Row -->
 
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                <span class="strikethrough">350.000 VNĐ</span>
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
+                <div class="product-cta text-center">
+                    <a href="<?php echo site_url('/products');?>">Xem Toàn Bộ</a>
                 </div>
+            </div><!-- Container -->
+        </div>
+        <!-- Product List -->
 
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
+    <?php }
 
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
+    wp_reset_postdata();
+    ?>
+    <!-- New Product -->
 
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
+    <?php
+    /* Query for 4 new watches */
+    $newWatches = new WP_Query(array(
+        'post_type'=>'watch',
+        'posts_per_page' => 4,
+    ));
+    if($newWatches->have_posts()){ ?>
+        <div class="products-group section">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-heading all-prod">
+                            <h3>
+                                ĐỒNG HỒ MỚI
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <?php
+                    while($newWatches->have_posts()){
+                        $newWatches->the_post();
+
+                        $productMaintain = get_field('product_maintain');
+                        $productSale = get_field('product_sale');
+                        $productPrice = get_field('product_price');
+                        //<editor-fold desc="Product Image">
+                        $productImage = '';
+
+                        if(has_post_thumbnail(get_the_ID())){
+                            $productImage = get_the_post_thumbnail_url();
+                        } else {
+                            for($i = 1; $i <= 4; $i++){
+                                $tempValue = get_field('product_image_'.$i);
+                                if($tempValue AND $productImage == ''){
+                                    $productImage = $tempValue['url'];
+                                }
+                            }
+                        }
+
+                        if($productImage == ''){
+                            if(get_post_type() == 'watch'){
+                                $productImage = get_theme_file_uri('assets/img/IMG_6955.JPG');
+                            } else {
+                                $productImage = get_theme_file_uri('assets/img/IMG_8358.JPG');
+                            }
+                        }
+                        //</editor-fold>
+
+                        $productExtra = array();
+
+                        for($i = 1; $i <= 6; $i++){
+                            $tempValue = get_field('product_extra_'.$i);
+                            if($tempValue){
+                                array_push($productExtra,$tempValue);
+                            }
+                        }
+
+                        ?>
+                        <div class= "col-md-3 col-sm-6">
+                            <!-- Product Item -->
+                            <div class="product-item">
+
+                                <!-- Product Image -->
+                                <div class="product-item__img">
+                                    <img src="<?php echo $productImage; ?>"
+                                         alt="Card image cap">
+
+                                    <!-- Product hidden content -->
+                                    <div class="product-item__hidden-content">
+                                        <ul class="product-item__hidden-content__detail">
+                                            <?php if($productMaintain > 0){
+                                                echo '<li>Bảo hành: <b>'.$productMaintain.' tháng</b></li>';
+                                            }
+                                            if (count ($productExtra) > 0){
+                                                foreach($productExtra as $value){
+                                                    echo '<li>'.$value.'</li>';
+                                                }
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                    <!-- Product hidden content -->
+
+                                </div>
+                                <!-- Product Image - end -->
+
+                                <!-- Product item content -->
+                                <div class="product-item__content">
+                                    <!-- Product name -->
+                                    <h4 class="product-item__content__title-content">
+                                        <?php the_title(); ?>
+                                    </h4><!-- Product name -->
+
+                                    <?php
+                                    if($productSale > 0){
+                                        ?>
+                                        <!-- Product main content -->
+                                        <p class="product-item__content__sub-content">
+                                    <span class="strikethrough">
+                                        <?php echo number_format($productPrice, 0,'', ',' ); ?> VNĐ
+                                    </span>
+                                        </p><!-- Product main content -->
+
+                                            <!-- Product main content -->
+                                        <p class="product-item__content__main-content">
+                                            <?php echo number_format(
+                                                $productPrice - ($productPrice) * $productSale/100,
+                                                0,'', ',' ); ?> VNĐ
+                                        </p><!-- Product main content -->
+
+                                        <?php
+                                    } else { ?>
+                                        <!-- Product main content -->
+                                        <p class="product-item__content__sub-content">
+                                                <span class="strikethrough">
+                                                    &nbsp;
+                                                </span>
+                                        </p><!-- Product main content -->
+                                            <!-- Product main content -->
+                                        <p class="product-item__content__main-content">
+                                            <?php echo $productPrice; ?> VNĐ
+                                        </p><!-- Product main content -->
+                                    <?php }
+                                    ?>
+                                </div>
+                                <!-- Product item content - END -->
+
+                                <!-- Product item call to action -->
+                                <div class="product-item__cta">
+                                    <a class="btn btn--custom btn--orange btn--square"
+                                       href="<?php echo get_permalink(); ?>">
+                                        MUA NGAY
+                                    </a>
+                                </div>
+                                <!-- Product item call to action - END -->
+
                             </div>
-                            <!-- Product hidden content -->
-
+                            <!-- Product item - End -->
                         </div>
-                        <!-- Product Image - end -->
+                    <?php } ?>
 
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
+                </div><!-- Row -->
 
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
+                <div class="product-cta text-center">
+                    <a href="<?php echo get_post_type_archive_link('watch');?>">Xem Toàn Bộ</a>
                 </div>
+            </div><!-- Container -->
+        </div>
+        <!-- Product List -->
 
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
+    <?php }
 
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG');?>"
-                                 alt="Card image cap">
+    wp_reset_postdata();
+    ?>
 
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
+    <?php
+    /* Query for 4 new watches */
+    $newWatches = new WP_Query(array(
+        'post_type'=>'glass',
+        'posts_per_page' => 4,
+    ));
+    if($newWatches->have_posts()){ ?>
+        <div class="products-group section">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-heading all-prod">
+                            <h3>
+                                MẮT KÍNH MỚI
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <?php
+                    while($newWatches->have_posts()){
+                        $newWatches->the_post();
+
+                        $productMaintain = get_field('product_maintain');
+                        $productSale = get_field('product_sale');
+                        $productPrice = get_field('product_price');
+                        //<editor-fold desc="Product Image">
+                        $productImage = '';
+
+                        if(has_post_thumbnail(get_the_ID())){
+                            $productImage = get_the_post_thumbnail_url();
+                        } else {
+                            for($i = 1; $i <= 4; $i++){
+                                $tempValue = get_field('product_image_'.$i);
+                                if($tempValue AND $productImage == ''){
+                                    $productImage = $tempValue['url'];
+                                }
+                            }
+                        }
+
+                        if($productImage == ''){
+                            if(get_post_type() == 'watch'){
+                                $productImage = get_theme_file_uri('assets/img/IMG_6955.JPG');
+                            } else {
+                                $productImage = get_theme_file_uri('assets/img/IMG_8358.JPG');
+                            }
+                        }
+                        //</editor-fold>
+
+                        $productExtra = array();
+
+                        for($i = 1; $i <= 6; $i++){
+                            $tempValue = get_field('product_extra_'.$i);
+                            if($tempValue){
+                                array_push($productExtra,$tempValue);
+                            }
+                        }
+
+                        ?>
+                        <div class= "col-md-3 col-sm-6">
+                            <!-- Product Item -->
+                            <div class="product-item">
+
+                                <!-- Product Image -->
+                                <div class="product-item__img">
+                                    <img src="<?php echo $productImage; ?>"
+                                         alt="Card image cap">
+
+                                    <!-- Product hidden content -->
+                                    <div class="product-item__hidden-content">
+                                        <ul class="product-item__hidden-content__detail">
+                                            <?php if($productMaintain > 0){
+                                                echo '<li>Bảo hành: <b>'.$productMaintain.' tháng</b></li>';
+                                            }
+                                            if (count ($productExtra) > 0){
+                                                foreach($productExtra as $value){
+                                                    echo '<li>'.$value.'</li>';
+                                                }
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                    <!-- Product hidden content -->
+
+                                </div>
+                                <!-- Product Image - end -->
+
+                                <!-- Product item content -->
+                                <div class="product-item__content">
+                                    <!-- Product name -->
+                                    <h4 class="product-item__content__title-content">
+                                        <?php the_title(); ?>
+                                    </h4><!-- Product name -->
+
+                                    <?php
+                                    if($productSale > 0){
+                                        ?>
+                                        <!-- Product main content -->
+                                        <p class="product-item__content__sub-content">
+                                                <span class="strikethrough">
+                                                    <?php echo number_format($productPrice, 0,'', ',' ); ?> VNĐ
+                                                </span>
+                                        </p><!-- Product main content -->
+
+                                            <!-- Product main content -->
+                                        <p class="product-item__content__main-content">
+                                            <?php echo number_format(
+                                                $productPrice - ($productPrice) * $productSale/100,
+                                                0,'', ',' ); ?> VNĐ
+                                        </p><!-- Product main content -->
+
+                                        <?php
+                                    } else { ?>
+                                        <!-- Product main content -->
+                                        <!-- Product main content -->
+                                        <p class="product-item__content__sub-content">
+                                                <span class="strikethrough">
+                                                    &nbsp;
+                                                </span>
+                                        </p><!-- Product main content -->
+                                        <p class="product-item__content__main-content">
+                                            <?php echo $productPrice; ?> VNĐ
+                                        </p><!-- Product main content -->
+                                    <?php }
+                                    ?>
+                                </div>
+                                <!-- Product item content - END -->
+
+                                <!-- Product item call to action -->
+                                <div class="product-item__cta">
+                                    <a class="btn btn--custom btn--orange btn--square"
+                                       href="<?php echo get_permalink(); ?>">
+                                        MUA NGAY
+                                    </a>
+                                </div>
+                                <!-- Product item call to action - END -->
+
                             </div>
-                            <!-- Product hidden content -->
-
+                            <!-- Product item - End -->
                         </div>
-                        <!-- Product Image - end -->
+                    <?php } ?>
 
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
+                </div><!-- Row -->
 
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
+                <div class="product-cta text-center">
+                    <a href="<?php echo get_post_type_archive_link('glass');?>">Xem Toàn Bộ</a>
                 </div>
+            </div><!-- Container -->
+        </div>
+        <!-- Product List -->
 
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
+    <?php }
 
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG');?>"
-                                 alt="Card image cap">
+    wp_reset_postdata();
+    ?>
 
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
 
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-            </div><!-- Row -->
-
-            <div class="product-cta text-center">
-                <a href="#">Xem Toàn Bộ</a>
-            </div>
-        </div><!-- Container -->
-    </div>
-    <!-- Product List -->
-
-
-    <!-- Product List -->
-    <div class="products-group section">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="custom-heading watch-prod">
-                        <h3>
-                            ĐỒNG HỒ
-                        </h3>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG');?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG');?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-            </div><!-- Row -->
-
-            <div class="product-cta text-center">
-                <a href="#">Xem Toàn Bộ</a>
-            </div>
-
-        </div><!-- Container -->
-    </div>
-    <!-- Product List -->
-
-    <!-- Product List -->
-    <div class="products-group section">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="custom-heading glasses-prod">
-                        <h3>
-                            MẮT KÍNH
-                        </h3>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-
-                <div class= "col-md-3 col-sm-6">
-                    <!-- Product Item -->
-                    <div class="product-item">
-
-                        <!-- Product Image -->
-                        <div class="product-item__img">
-                            <img src="<?php echo get_theme_file_uri('assets/img/IMG_6955.JPG'); ?>"
-                                 alt="Card image cap">
-
-                            <!-- Product hidden content -->
-                            <div class="product-item__hidden-content">
-                                <ul class="product-item__hidden-content__detail">
-                                    <li>Size: <b>30mm</b></li>
-                                    <li><b>Dây da</b></li>
-                                    <li><b>Mặt kính sapphire</b></li>
-                                    <li>Chống nước: <b>3ATM</b></li>
-                                    <li>Bảo hành: <b>6 tháng</b></li>
-                                </ul>
-                            </div>
-                            <!-- Product hidden content -->
-
-                        </div>
-                        <!-- Product Image - end -->
-
-                        <!-- Product item content -->
-                        <div class="product-item__content">
-                            <!-- Product name -->
-                            <h4 class="product-item__content__title-content">
-                                Product name num 1
-                            </h4><!-- Product name -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__sub-content">
-                                Sub information
-                            </p><!-- Product main content -->
-
-                            <!-- Product main content -->
-                            <p class="product-item__content__main-content">
-                                300.000 VND
-                            </p><!-- Product main content -->
-                        </div>
-                        <!-- Product item content - END -->
-
-                        <!-- Product item call to action -->
-                        <div class="product-item__cta">
-                            <a class="btn btn--custom btn--orange btn--square" href="#">
-                                MUA NGAY
-                            </a>
-                        </div>
-                        <!-- Product item call to action - END -->
-
-                    </div>
-                    <!-- Product item - End -->
-                </div>
-            </div><!-- Row -->
-
-            <div class="product-cta text-center">
-                <a href="#">Xem Toàn Bộ</a>
-            </div>
-
-        </div><!-- Container -->
-    </div>
-    <!-- Product List -->
-
-
-    <!-- News Section -->
     <div class="news-section jumbotron jumbotron-fluid section mag-bot-0 no-pad-top">
         <div class="container">
             <div class="row">
                 <div class="col-md-9 news-col">
-                    <!-- News Col Heading -->
-                    <div class="custom-heading no-dash disabled-border text-left full-width">
-                        <h3>Tin tức </h3>
-                    </div>
-                    <!-- News Col Heading - END -->
 
-                    <!-- News Container -->
-                    <div class="news-container">
+                    <!-- News Section -->
+                    <?php
+                    $newPosts = new WP_Query(array(
+                        'post_type'=>'post',
+                        'post_per_page'=> 3
+                    ));
 
-                        <!-- News row -->
-                        <div class="row news-item">
-                            <!-- Image Holder -->
-                            <div class="col-sm-4 img-holder">
-                                <img src="<?php echo get_theme_file_uri('assets/img/IMG_8358.JPG'); ?>"
-                                     class="img-fluid" alt="Responsive image">
-                            </div>
-                            <!-- Image Holder - END -->
-
-                            <!-- News Content -->
-                            <div class="col-sm-8 content-holder">
-                                <h4>Lorem ipsum</h4>
-                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu...</p>
-                            </div>
-                            <!-- News Content - END -->
-                        </div><!-- News row - END -->
-
-
-                        <!-- News row -->
-                        <div class="row news-item">
-                            <!-- Image Holder -->
-                            <div class="col-sm-4 img-holder">
-                                <img src="<?php echo get_theme_file_uri('assets/img/IMG_8358.JPG'); ?>"
-                                     class="img-fluid" alt="Responsive image">
-                            </div>
-                            <!-- Image Holder - END -->
-
-                            <!-- News Content -->
-                            <div class="col-sm-8 content-holder">
-                                <h4>Lorem ipsum</h4>
-                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu...</p>
-                            </div>
-                            <!-- News Content - END -->
-                        </div><!-- News row - END -->
-
-                        <!-- Call To Action -->
-                        <div class="col-xs-12 mag-top-30 no-pad">
-                            <a class="btn btn--custom btn-block btn--orange btn--square">
-                                Xem thêm
-                            </a>
+                    if($newPosts->have_posts()){
+                        ?>
+                        <!-- News Col Heading -->
+                        <div class="custom-heading no-dash disabled-border text-left full-width">
+                            <h3>Tin tức </h3>
                         </div>
+                        <!-- News Col Heading - END -->
 
-                    </div>
-                    <!-- News Container - END -->
+                        <!-- News Container -->
+                        <div class="news-container">
+                            <?php
+                            while($newPosts->have_posts()) {
+                                $newPosts->the_post();
+
+                                if (has_post_thumbnail()) {
+                                    ?>
+                                    <!-- News row -->
+                                    <div class="row news-item">
+                                        <!-- Image Holder -->
+                                        <div class="col-sm-4 img-holder">
+                                            <a href="<?php echo get_permalink(); ?>">
+                                                <img src="<?php echo get_the_post_thumbnail_url(); ?>"
+                                                     class="img-fluid" alt="Responsive image">
+                                            </a>
+                                        </div>
+                                        <!-- Image Holder - END -->
+
+                                        <!-- News Content -->
+                                        <div class="col-sm-8 content-holder">
+                                            <h4>
+                                                <a href ="<?php echo get_permalink();?>">
+                                                    <?php the_title(); ?>
+                                                </a>
+                                            </h4>
+                                            <p class="excerpt">
+                                                <?php
+                                                echo wp_trim_words(70, get_the_content());
+                                                ?>
+                                            </p>
+                                        </div>
+                                        <!-- News Content - END -->
+                                    </div><!-- News row - END -->
+
+                                <?php } else {
+                                    ?>
+
+                                    <!-- News row -->
+                                    <div class="row news-item">
+                                        <!-- News Content -->
+                                        <div class="col-sm-12 content-holder">
+                                            <h4>
+                                                <a href ="<?php echo get_permalink();?>">
+                                                    <?php the_title(); ?>
+                                                </a>
+                                            </h4>
+                                            <p class="excerpt">
+                                                <?php
+                                                echo wp_trim_words(get_the_content(), 50);
+                                                ?>
+                                            </p>
+                                        </div>
+                                        <!-- News Content - END -->
+                                    </div><!-- News row - END -->
+
+                                    <?php
+                                }
+                            } ?>
+                            <!-- Call To Action -->
+                            <div class="col-xs-12 mag-top-30 no-pad">
+                                <a href="<?php echo site_url('/blog');?>"
+                                   class="btn btn--custom btn-block btn--orange btn--square">
+                                    Xem thêm
+                                </a>
+                            </div>
+
+                        </div>
+                        <!-- News Container - END -->
+                        <?php
+                    } else { ?>
+                        <!-- News Col Heading -->
+                        <div class="custom-heading no-dash disabled-border text-left full-width">
+                            <h3>Giới thiệu The Saric Shop</h3>
+                        </div>
+                        <!-- News Container -->
+                        <div class="news-container">
+                            <iframe width="100%"
+                                    height="550"
+                                    src="https://www.youtube.com/embed/tmeOjFno6Do"
+                                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+
+                            </iframe>
+                        </div>
+                        <!-- News Col Heading - END -->
+                    <?php }
+                    wp_reset_postdata();
+                    ?>
                 </div>
                 <div class="col-md-3 sale-col">
-                    <!-- News Col Heading -->
-                    <div class="custom-heading no-dash disabled-border text-left full-width">
-                        <h3>Khuyến mãi</h3>
-                    </div>
-                    <!-- News Col Heading -->
-                    <div class="sale-holder">
-                        <!-- Sale slider -->
-                        <div class="sale-slider">
+                    <!-- New Product -->
+                    <?php
+                    $saleProduct = new WP_Query(array(
+                        'post_type' => array('watch', 'glass'),
+                        'posts_per_page' => 4,
+                        'meta_query' => array(
+                            array(
+                                'key' => 'product_sale',
+                                'compare' => '>',
+                                'value' => 0,
+                            )
+                        )
+                    ));
 
-                            <!-- Sale slider item -->
-                            <div class="sale-item">
-                                <div class="sale-item__img">
-                                    <img src="<?php echo get_theme_file_uri('assets/img/IMG_8339.JPG'); ?>">
-                                </div>
-                                <div class="sale-item__content">
-                                    <p class="sale-detail">Sale off mat kinh 35%</p>
-                                    <div class="price-holder">
-                                        <p class="old-price">300.000VND</p>
-                                        <p class="new-price">320.000VND</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Sale Slider item -->
+                    if($saleProduct->have_posts()){
 
-                            <!-- Sale slider item -->
-                            <div class="sale-item">
-                                <div class="sale-item__img">
-                                    <img src="<?php echo get_theme_file_uri('assets/img/IMG_8339.JPG'); ?>">
-                                </div>
-                                <div class="sale-item__content">
-                                    <p class="sale-detail">Sale off mat kinh 35%</p>
-                                    <div class="price-holder">
-                                        <p class="old-price">300.000VND</p>
-                                        <p class="new-price">320.000VND</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Sale Slider item -->
-
-                            <!-- Sale slider item -->
-                            <div class="sale-item">
-                                <div class="sale-item__img">
-                                    <img src="<?php echo get_theme_file_uri('assets/img/IMG_8339.JPG'); ?>">
-                                </div>
-                                <div class="sale-item__content">
-                                    <p class="sale-detail">Sale off mat kinh 35%</p>
-                                    <div class="price-holder">
-                                        <p class="old-price">300.000VND</p>
-                                        <p class="new-price">320.000VND</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Sale Slider item -->
+                        ?>
+                        <!-- News Col Heading -->
+                        <div class="custom-heading no-dash disabled-border text-left full-width">
+                            <h3>Khuyến mãi</h3>
                         </div>
+                        <!-- News Col Heading -->
+                        <div class="sale-holder">
+                            <!-- Sale slider -->
+                            <div class="sale-slider">
+                                <?php while($saleProduct->have_posts()){
+                                    $saleProduct->the_post();
 
-                    </div>
+                                    $productSale = get_field('product_sale');
+                                    $productPrice = get_field('product_price');
+                                    //<editor-fold desc="Product Image">
+                                    $productImage = '';
+
+                                    if(has_post_thumbnail(get_the_ID())){
+                                        $productImage = get_the_post_thumbnail_url();
+                                    } else {
+                                        for($i = 1; $i <= 4; $i++){
+                                            $tempValue = get_field('product_image_'.$i);
+                                            if($tempValue AND $productImage == ''){
+                                                $productImage = $tempValue['url'];
+                                            }
+                                        }
+                                    }
+
+                                    if($productImage == ''){
+                                        if(get_post_type() == 'watch'){
+                                            $productImage = get_theme_file_uri('assets/img/IMG_6955.JPG');
+                                        } else {
+                                            $productImage = get_theme_file_uri('assets/img/IMG_8358.JPG');
+                                        }
+                                    }
+                                    //</editor-fold>
+
+                                    ?>
+                                    <!-- Sale slider item -->
+                                    <div class="sale-item">
+                                        <div class="sale-item__img">
+                                            <img src="<?php echo $productImage; ?>">
+                                        </div>
+                                        <div class="sale-item__content">
+                                            <p class="sale-detail">
+                                                <?php echo get_the_title().' Sale off '.$productSale.'%'?>
+                                            </p>
+                                            <div class="price-holder">
+                                                <p class="old-price">
+                                                    <?php echo number_format($productPrice,0,'',',') ?> VND
+                                                </p>
+                                                <p class="new-price">
+                                                    <?php echo number_format(
+                                                            $productPrice - ($productPrice)*$productSale/100,
+                                                            0,'',',') ?> VND
+                                                    VNĐ
+                                                </p>
+                                            </div>
+                                            <div class="sale-item cta">
+                                                <a href="<?php echo get_permalink();?>"
+                                                    class="btn btn--custom btn--orange btn--square mt-10">
+                                                    MUA NGAY
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Sale Slider item -->
+
+                                <?php }?>
+                            </div>
+
+                        </div>
+                    <?php } ?>
+
 
                     <!-- News Col Heading -->
                     <div class="custom-heading no-dash disabled-border text-left full-width">

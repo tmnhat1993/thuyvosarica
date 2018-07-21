@@ -52,6 +52,31 @@ $discountWatches = new WP_Query(array(
 
         <div class="row">
 
+            <!-- Link to other route -->
+            <div class="col-sm-12">
+                <div class="tag-holder">
+                    <ul class="tag-list">
+                        <li class="tag-item active">
+                            <a>
+                                ĐỒNG HỒ KHUYẾN MÃI
+                            </a>
+                        </li>
+                        <li class="tag-item">
+                            <a href="<?php echo site_url('/discount-glass'); ?>">
+                                MẮT KÍNH KHUYẾN MÃI
+                            </a>
+                        </li>
+                        <li class="tag-item">
+                            <a href="<?php echo site_url('/products'); ?>">
+                                TẤT CẢ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Link to other Route -->
+
+
             <?php if($discountWatches->have_posts()){
                 while($discountWatches->have_posts()){
                 $discountWatches->the_post();
@@ -162,10 +187,6 @@ $discountWatches = new WP_Query(array(
 
 
         </div><!-- Row -->
-
-        <div class="product-cta text-center">
-            <a href="#">Mắt Kiếng Khuyến Mãi </a>
-        </div>
 
     </div><!-- Container -->
 </div>

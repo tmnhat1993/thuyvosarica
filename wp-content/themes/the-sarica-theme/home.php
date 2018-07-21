@@ -39,7 +39,9 @@ get_header(); ?>
                         <div class="col-sm-12  news-content-item">
                             <!-- News Col Heading -->
                             <div class="custom-heading post-heading disabled-border text-left full-width">
-                                <a href="#"><h3><?php the_title(); ?></h3></a>
+                                <a href="<?php echo get_permalink(); ?>">
+                                    <h3><?php the_title(); ?></h3>
+                                </a>
 
                                 <div class="sub-heading-news-content">
                                     <div class="row">
@@ -54,7 +56,7 @@ get_header(); ?>
                             <!-- Main Content -->
                             <div class="excerpt-content">
                                 <div class="row">
-                                    <?php if(has_post_thumbnail()) { ?>
+                                    <?php if(has_post_thumbnail(get_the_ID())) { ?>
                                         <div class="col-sm-5 excerpt-thumbnail">
                                             <div class="excerpt-thumbnail-holder">
                                                 <img src="<?php echo get_the_post_thumbnail_url(); ?>">
@@ -66,22 +68,30 @@ get_header(); ?>
                                                 <?php if(has_excerpt()){
                                                     the_excerpt();
                                                 } else {
-                                                    wp_trim_words( get_the_content(), 60);
+                                                    echo wp_trim_words(get_the_content(), 100);
                                                 }?>
                                             </p>
                                         </div>
                                     <?php } else { ?>
                                         <div class="col-sm-12 excerpt-context">
                                             <p>
-                                                <?php if(has_excerpt()){
+                                                <?php
+                                                if(has_excerpt() && get_the_excerpt() !== ''){
                                                     the_excerpt();
-                                                } else {
-                                                    wp_trim_words( get_the_content(), 60);
-                                                }?>
+                                                }else{
+                                                   echo wp_trim_words(get_the_content(), 100);
+                                                }
+                                                ?>
                                             </p>
+                                            <div class="cta">
+                                                <a class="see-more" href="<?php echo get_permalink(); ?>">
+                                                    Xem thêm
+                                                </a>
+                                            </div>
                                         </div>
 
-                                    <?php }?>
+                                    <?php }
+                                    ?>
 
                                 </div>
                             </div>
@@ -89,147 +99,13 @@ get_header(); ?>
                         </div>
                         <!-- Product Description - END -->
                         <?php } ?>
-
-                    <!-- Product Description -->
-                    <div class="col-sm-12  news-content-item">
-                        <!-- News Col Heading -->
-                        <div class="custom-heading post-heading disabled-border text-left full-width">
-                            <a href="#"><h3>News Number 1</h3></a>
-
-                            <div class="sub-heading-news-content">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p>Đăng ngày: <b>01/05/2018</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- News Col Heading -->
-
-                        <!-- Main Content -->
-                        <div class="excerpt-content">
-                            <div class="row">
-                                <div class="col-sm-5 excerpt-thumbnail">
-                                    <div class="excerpt-thumbnail-holder">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-7 excerpt-context">
-                                    <p>
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris
-                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                        dolor in reprehenderit in voluptate velit esse cillum dolore
-                                        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                        non proident, sunt in culpa qui officia deserunt mollit anim
-                                        id est laborum."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Main Content - END -->
-                    </div>
-                    <!-- Product Description - END -->
-
-                    <!-- Product Description -->
-                    <div class="col-sm-12  news-content-item">
-                        <!-- News Col Heading -->
-                        <div class="custom-heading post-heading disabled-border text-left full-width">
-                            <a href="#"><h3>News Number 1</h3></a>
-
-                            <div class="sub-heading-news-content">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p>Đăng ngày: <b>01/05/2018</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- News Col Heading -->
-
-                        <!-- Main Content -->
-                        <div class="excerpt-content">
-                            <div class="row">
-                                <div class="col-sm-5 excerpt-thumbnail">
-                                    <div class="excerpt-thumbnail-holder">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-7 excerpt-context">
-                                    <p>
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris
-                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                        dolor in reprehenderit in voluptate velit esse cillum dolore
-                                        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                        non proident, sunt in culpa qui officia deserunt mollit anim
-                                        id est laborum."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Main Content - END -->
-                    </div>
-                    <!-- Product Description - END -->
-
-                    <!-- Product Description -->
-                    <div class="col-sm-12  news-content-item">
-                        <!-- News Col Heading -->
-                        <div class="custom-heading post-heading disabled-border text-left full-width">
-                            <a href="#"><h3>News Number 1</h3></a>
-
-                            <div class="sub-heading-news-content">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p>Đăng ngày: <b>01/05/2018</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- News Col Heading -->
-
-                        <!-- Main Content -->
-                        <div class="excerpt-content">
-                            <div class="row">
-                                <div class="col-sm-5 excerpt-thumbnail">
-                                    <div class="excerpt-thumbnail-holder">
-                                        <img src="img/IMG_6955.JPG">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-7 excerpt-context">
-                                    <p>
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris
-                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                        dolor in reprehenderit in voluptate velit esse cillum dolore
-                                        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                        non proident, sunt in culpa qui officia deserunt mollit anim
-                                        id est laborum."
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Main Content - END -->
-                    </div>
-                    <!-- Product Description - END -->
-
                 </div>
                 <!-- Row - END -->
 
                 <!-- Row -->
                 <div class="row navigation-news">
-                    <div class="col-sm-6 prev-col">
-                        <a href="#">Bài viết mới</a>
-                    </div>
-                    <div class="col-sm-6 next-col text-right">
-                        <a href="#">Bài viết cũ</a>
-                    </div>
+
+                    <?php posts_nav_link(' ','Bài viết mới','Bài viết cũ'); ?>
                 </div>
                 <!-- Row - END -->
             </div>

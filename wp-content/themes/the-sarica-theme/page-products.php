@@ -1,5 +1,12 @@
 <?php
 get_header();
+
+$allProduct = new WP_Query(array(
+    'post_type' => array('watch', 'glass'),
+    'posts_per_page' => 8,
+    'paged' => get_query_var('paged', 1),
+));
+
 ?>
 
 <!-- Banner -->
@@ -14,10 +21,11 @@ get_header();
 
             <!-- Banner content -->
             <div class="banner__content text-left">
-                <h1>MẮT KIẾNG MỚI</h1>
+                <h1>TẤT CẢ SẢN PHẨM</h1>
                 <hr>
                 <p class="opc-7">
-                    Mắt kiếng thời trang với giá tốt nhất
+                    Sản phẩm đồng hồ mắt kiếng mới được cập nhật thường xuyên với giá
+                tốt nhất
                 </p>
             </div>
             <!-- Banner Content -->
@@ -27,7 +35,7 @@ get_header();
 <!-- Banner -->
 
 <?php
-if(have_posts()){ ?>
+if( $allProduct->have_posts()){ ?>
     <div class="products-group section">
 
         <div class="container">
@@ -36,7 +44,7 @@ if(have_posts()){ ?>
                 <div class="col-md-12">
                     <div class="custom-heading all-prod">
                         <h3>
-                            MẮT KIẾNG
+                            TẤT CẢ SẢN PHẨM
                         </h3>
                     </div>
                 </div>
@@ -52,13 +60,13 @@ if(have_posts()){ ?>
                                     ĐỒNG HỒ
                                 </a>
                             </li>
-                            <li class="tag-item active">
-                                <a>
+                            <li class="tag-item">
+                                <a href="<?php echo get_post_type_archive_link('glass'); ?>">
                                     MẮT KÍNH
                                 </a>
                             </li>
-                            <li class="tag-item">
-                                <a href="<?php echo site_url('/products');?>">
+                            <li class="tag-item  active">
+                                <a>
                                     TẤT CẢ
                                 </a>
                             </li>
@@ -67,10 +75,9 @@ if(have_posts()){ ?>
                 </div>
                 <!-- Link to other Route -->
 
-
                 <?php
-                while(have_posts()){
-                    the_post();
+                while($allProduct->have_posts()){
+                    $allProduct->the_post();
 
                     $productMaintain = get_field('product_maintain');
                     $productSale = get_field('product_sale');
@@ -199,37 +206,15 @@ if(have_posts()){ ?>
         <div class="pagination">
             <?php
             echo paginate_links( array(
-                /* We only need this to render the pagination link */
+            /* We only need this to render the pagination link */
                 'total' => $allProduct-> max_num_pages,
                 'prev_text' => __('<i class="fa fa-arrow-left" aria-hidden="true"></i>'),
                 'next_text' => __('<i class="fa fa-arrow-right" aria-hidden="true"></i>'),
             ));?>
         </div>
     </div>
-    <?php
-} else {
-    ?>
-
-    <div class="products-group section">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="custom-heading all-prod">
-                        <h3>
-                            MẮT KIẾNG
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <h4>Hiện không có sản phẩm mắt kiếng nào</h4>
-            </div>
-        </div>
-    </div>
-
-<?php }
+<?php
+}
 
 wp_reset_postdata();
 ?>

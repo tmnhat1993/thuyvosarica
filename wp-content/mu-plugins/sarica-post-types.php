@@ -14,6 +14,12 @@ function sarica_post_type(){
             'singular_name' => 'watch',
         ),
 
+        // Rewrite Archive Slugs
+        'rewrite' => array(
+            'slugs' => 'watches'
+        ),
+        'has_archive'=>true,
+
         //Supports Feature
         'supports' => array('excerpt', 'thumbnail', 'title', 'editor'),
 
@@ -38,6 +44,12 @@ function sarica_post_type(){
             'all_items' => 'All glasses',
             'singular_name' => 'glass',
         ),
+
+        // Rewrite Archive Slugs
+        'rewrite' => array(
+            'slugs' => 'glasses'
+        ),
+        'has_archive'=>true,
 
         //Supports Feature
         'supports' => array('excerpt', 'title', 'editor', 'thumbnail'),

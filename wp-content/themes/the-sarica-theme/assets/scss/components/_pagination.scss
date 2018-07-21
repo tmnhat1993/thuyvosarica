@@ -1,0 +1,27 @@
+.pagination{
+  width: 100%;
+  text-align: center;
+  margin: 0 0 35px;
+  display:block;
+
+  .page-numbers{
+    display: inline-block;
+    line-height: 42px;
+    width: 42px;
+    height: 42px;
+    font-weight: 500;
+    font-size: 18px;
+    border: 1px solid #eee;
+    margin-right: -4px;
+
+    &.current{
+      background-color: #e84118;
+      color: $white;
+      border: 1px solid #e84118;
+    }
+
+    .fa{
+      line-height: 42px;
+    }
+  }
+}

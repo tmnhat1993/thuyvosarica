@@ -1,5 +1,9 @@
 <?php
-get_header(); ?>
+get_header();
+
+$showType = get_field('home_page_news');
+$youtubeClip = get_field('youtube_clip');
+?>
 
     <!-- Banner -->
     <div id="banner">
@@ -13,13 +17,13 @@ get_header(); ?>
 
                 <!-- Banner content -->
                 <div class="banner__content text-center">
-                    <h1>THE SARICA SHOP</h1>
-                    <p>
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat."
-                    </p>
+                    <h1><?php echo get_field('home_banner_title'); ?></h1>
+                    <?php if(get_field('home_sub_banner_title') != ''){
+                        echo '<p>'.get_field('home_sub_banner_title').'</p>';
+                    } else {
+                        echo '<p>'.get_the_content().'</p>';
+                    } ?>
+
                     <div class="banner__call-to-action">
                         <a href="<?php echo site_url('/products'); ?>"
                            class="btn btn--custom btn--orange btn--lg btn--square">
@@ -562,7 +566,7 @@ get_header(); ?>
                         'post_per_page'=> 3
                     ));
 
-                    if($newPosts->have_posts()){
+                    if($newPosts->have_posts() && $showType == 'news'){
                         ?>
                         <!-- News Col Heading -->
                         <div class="custom-heading no-dash disabled-border text-left full-width">
@@ -649,7 +653,7 @@ get_header(); ?>
                         <div class="news-container">
                             <iframe width="100%"
                                     height="550"
-                                    src="https://www.youtube.com/embed/tmeOjFno6Do"
+                                    src="https://www.youtube.com/embed/<?php echo $youtubeClip ?>"
                                     frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 
                             </iframe>

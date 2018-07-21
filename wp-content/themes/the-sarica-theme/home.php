@@ -2,7 +2,8 @@
 get_header(); ?>
 
 <!-- Banner -->
-<div id="banner">
+<div id="banner"
+    style="background-image: url('<?php echo get_theme_file_uri("assets/img/blog-banner.jpg"); ?>')">
     <div class="container">
         <div class="banner sm-padding">
             <!-- Banner image -->
@@ -71,6 +72,11 @@ get_header(); ?>
                                                     echo wp_trim_words(get_the_content(), 100);
                                                 }?>
                                             </p>
+                                            <div class="cta">
+                                                <a class="see-more" href="<?php echo get_permalink(); ?>">
+                                                    Xem thêm
+                                                </a>
+                                            </div>
                                         </div>
                                     <?php } else { ?>
                                         <div class="col-sm-12 excerpt-context">
@@ -111,70 +117,97 @@ get_header(); ?>
             </div>
 
             <!-- Sidebar -->
-            <div class="col-sm-3">
-                <!-- News Col Heading -->
-                <div class="custom-heading no-dash disabled-border text-left full-width">
-                    <h3>Bài viết liên quan</h3>
-                </div>
-                <!-- News Col Heading -->
+            <div class="col-sm-3 sidebar">
 
-                <!-- Related Post -->
-                <div class="related-post-holder">
+                <!-- New Product -->
+                <?php
+                $saleProduct = new WP_Query(array(
+                    'post_type' => array('watch', 'glass'),
+                    'posts_per_page' => 4,
+                    'meta_query' => array(
+                        array(
+                            'key' => 'product_sale',
+                            'compare' => '>',
+                            'value' => 0,
+                        )
+                    )
+                ));
 
-                    <!-- Post item -->
-                    <div class="post-item">
+                if($saleProduct->have_posts()){
 
-                        <!-- Post item thumbnail -->
-                        <div class="post-item__thumbnail">
-                            <img src="img/IMG_6955.JPG" class="img-fluid">
-                        </div>
-                        <!-- Post item thumbnail - END -->
-
-                        <!-- Post item content -->
-                        <div class="post-item__content">
-                            <h3 class="post-item__content__title">
-                                Giảm giá cuối tuần
-                            </h3>
-                            <p class="post-item__content__excerpt">
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna"
-                            </p>
-                            <a class="post-item__content__cta" href="#">
-                                Tìm hiểu ngay
-                            </a>
-                        </div>
-                        <!-- Post item content - END -->
+                    ?>
+                    <!-- News Col Heading -->
+                    <div class="custom-heading no-dash disabled-border text-left full-width">
+                        <h3>Khuyến mãi</h3>
                     </div>
-                    <!-- Post item - END -->
+                    <!-- News Col Heading -->
+                    <div class="sale-holder">
+                        <!-- Sale slider -->
+                        <div class="sale-slider">
+                            <?php while($saleProduct->have_posts()){
+                                $saleProduct->the_post();
 
-                    <!-- Post item -->
-                    <div class="post-item">
+                                $productSale = get_field('product_sale');
+                                $productPrice = get_field('product_price');
+                                //<editor-fold desc="Product Image">
+                                $productImage = '';
 
-                        <!-- Post item thumbnail -->
-                        <div class="post-item__thumbnail">
-                            <img src="img/IMG_6955.JPG" class="img-fluid">
+                                if(has_post_thumbnail(get_the_ID())){
+                                    $productImage = get_the_post_thumbnail_url();
+                                } else {
+                                    for($i = 1; $i <= 4; $i++){
+                                        $tempValue = get_field('product_image_'.$i);
+                                        if($tempValue AND $productImage == ''){
+                                            $productImage = $tempValue['url'];
+                                        }
+                                    }
+                                }
+
+                                if($productImage == ''){
+                                    if(get_post_type() == 'watch'){
+                                        $productImage = get_theme_file_uri('assets/img/IMG_6955.JPG');
+                                    } else {
+                                        $productImage = get_theme_file_uri('assets/img/IMG_8358.JPG');
+                                    }
+                                }
+                                //</editor-fold>
+
+                                ?>
+                                <!-- Sale slider item -->
+                                <div class="sale-item">
+                                    <div class="sale-item__img">
+                                        <img src="<?php echo $productImage; ?>">
+                                    </div>
+                                    <div class="sale-item__content">
+                                        <p class="sale-detail">
+                                            <?php echo get_the_title().' Sale off '.$productSale.'%'?>
+                                        </p>
+                                        <div class="price-holder">
+                                            <p class="old-price">
+                                                <?php echo number_format($productPrice,0,'',',') ?> VND
+                                            </p>
+                                            <p class="new-price">
+                                                <?php echo number_format(
+                                                    $productPrice - ($productPrice)*$productSale/100,
+                                                    0,'',',') ?> VND
+                                                VNĐ
+                                            </p>
+                                        </div>
+                                        <div class="sale-item cta">
+                                            <a href="<?php echo get_permalink();?>"
+                                               class="btn btn--custom btn--orange btn--square mt-10">
+                                                MUA NGAY
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Sale Slider item -->
+
+                            <?php }?>
                         </div>
-                        <!-- Post item thumbnail - END -->
 
-                        <!-- Post item content -->
-                        <div class="post-item__content">
-                            <h3 class="post-item__content__title">
-                                Giảm giá cuối tuần
-                            </h3>
-                            <p class="post-item__content__excerpt">
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna"
-                            </p>
-                            <a class="post-item__content__cta" href="#">
-                                Tìm hiểu ngay
-                            </a>
-                        </div>
-                        <!-- Post item content - END -->
                     </div>
-                    <!-- Post item - END -->
-                </div>
-                <!-- Related Post - END -->
-
+                <?php } ?>
 
                 <!-- News Col Heading -->
                 <div class="custom-heading no-dash disabled-border text-left full-width">

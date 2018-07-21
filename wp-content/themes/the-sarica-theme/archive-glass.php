@@ -19,6 +19,12 @@ get_header();
                 <p class="opc-7">
                     Mắt kiếng thời trang với giá tốt nhất
                 </p>
+                <div class="cta">
+                    <a class="btn btn--custom btn--orange btn--square"
+                       href="<?php echo site_url('discount-glasses'); ?>">
+                        XEM KHUYẾN MÃI MẮT KIẾNG
+                    </a>
+                </div>
             </div>
             <!-- Banner Content -->
         </div>

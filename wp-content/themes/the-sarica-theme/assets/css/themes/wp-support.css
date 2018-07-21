@@ -58,3 +58,9 @@ body .slick-slide {
     float: left; }
   .news-content .navigation-news a:last-child {
     float: right; }
+
+.sidebar .custom-heading:first-child {
+  margin-top: 0; }
+
+.banner .cta, #banner .cta {
+  margin-top: 20px; }

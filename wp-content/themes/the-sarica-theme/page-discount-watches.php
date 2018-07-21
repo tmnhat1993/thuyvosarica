@@ -25,9 +25,16 @@ $discountWatches = new WP_Query(array(
 
             <!-- Banner content -->
             <div class="banner__content text-left">
-                <h1>Khuyến mãi</h1>
+                <h1>Đồng hồ khuyến mãi</h1>
                 <hr>
                 <p class="opc-7">Tất cả đồng hồ khuyến mãi được cập nhật thường xuyên</p>
+
+                <div class="cta">
+                    <a class="btn btn--custom btn--orange btn--square"
+                       href="<?php echo get_post_type_archive_link('watch'); ?>">
+                        XEM TẤT CẢ ĐỒNG HỒ
+                    </a>
+                </div>
             </div>
             <!-- Banner Content -->
         </div>

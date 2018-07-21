@@ -14,11 +14,17 @@ get_header();
 
             <!-- Banner content -->
             <div class="banner__content text-left">
-                <h1>MẮT KIẾNG MỚI</h1>
+                <h1>ĐỒNG HỒ MỚI NHẤT</h1>
                 <hr>
                 <p class="opc-7">
-                    Mắt kiếng thời trang với giá tốt nhất
+                    Đồng hồ thời trang với giá tốt nhất
                 </p>
+                <div class="cta">
+                    <a class="btn btn--custom btn--orange btn--square"
+                        href="<?php echo site_url('/discount-watch') ?>">
+                        XEM KHUYẾN MÃI ĐỒNG HỒ
+                    </a>
+                </div>
             </div>
             <!-- Banner Content -->
         </div>

@@ -28,6 +28,12 @@ $discountWatches = new WP_Query(array(
                 <h1>Khuyến mãi</h1>
                 <hr>
                 <p class="opc-7">Tất cả mắt kiếng khuyến mãi được cập nhật thường xuyên</p>
+                <div class="cta">
+                    <a class="btn btn--custom btn--orange btn--square"
+                       href="<?php echo get_post_type_archive_link('glass'); ?>">
+                        XEM TẤT CẢ MẮT KIẾNG
+                    </a>
+                </div>
             </div>
             <!-- Banner Content -->
         </div>

@@ -56,10 +56,17 @@ function sarica_theme_feature(){
 }
 //</editor-fold>
 
-function process_price($price){
-    $temp_price = str_split(''.$price, 3);
-    $new_price = implode(',', $temp_price);
-
-    return $new_price;
+add_action( 'admin_post_nopriv_process_order_form', 'process_form_data' );
+add_action( 'admin_post_process_order_form', 'process_form_data' );
+function process_form_data() {
+    status_header(200);
+    wp_insert_post(array(
+        'post_type'=>'order',
+        'post_title'=>'Order From Random Client',
+        'post_content'=> (string)$_POST['target_order'] ,
+    ), true);
+    wp_redirect(site_url('/'));
+    exit;
+    //request handlers should die() when they complete their task
 }
 ?>

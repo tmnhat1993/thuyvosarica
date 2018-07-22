@@ -148,7 +148,7 @@ while(have_posts()){
 
                         <!-- Product Call To Action -->
                         <div class="product-call-to-action">
-                            <a href="javascript:;" class="buynow-btn">
+                            <a class="buynow-btn" data-toggle="modal" data-target="#orderModal">
                                 Đặt mua ngay
                             </a>
                             <p class="policy-text">
@@ -319,6 +319,67 @@ while(have_posts()){
     <!-- Product Detail Content - END -->
 
 <?php } ?>
+
+    <div class="modal order-product-modal" tabindex="-1" role="dialog" id="orderModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đặt mua sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
+                    <div class="modal-body">
+                        <p>You have order 1 product</p>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="<?php echo get_the_post_thumbnail_url(); ?>">
+                            </div>
+                            <div class="col-sm-8">
+                                <h3><?php the_title(); ?></h3>
+                            </div>
+                        </div>
+                        <input type="hidden" name="action" value="process_order_form">
+                        <input type="hidden" name="target_order" value=<?php echo get_the_ID(); ?>>
+                        <div class="form-row">
+                            <label for="name" class="col-sm-4 col-form-label">Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       name="name"
+                                       id="name-input"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="email" class="col-sm-4 col-form-label">Email:</label>
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       class="form-control"
+                                       name="email"
+                                       id="email-input">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="phone" class="col-sm-4 col-form-label">Phone Number: </label>
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       class="form-control"
+                                       name="phone"
+                                       id="phone-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit"
+                               name="submit"
+                               class="btn btn--custom btn--orange btn--square"
+                               value="Order Now">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 <?php
 get_footer()

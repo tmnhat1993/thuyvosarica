@@ -317,6 +317,129 @@ while(have_posts()){
     </div>
     <!-- Product Detail Content - END -->
 
+    <!-- Modal Order Form -->
+    <div class="modal order-product-modal" tabindex="-1" role="dialog" id="orderModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đặt mua sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
+                    <div class="modal-body">
+                        <div class="row product-simple-content">
+                            <div class="col-sm-4 product-img">
+                                <?php
+                                if(has_post_thumbnail()){
+                                    echo '<img src="'.get_the_post_thumbnail_url().'">';
+                                } else {
+                                    if(count($imageArray) >0){
+                                        echo '<img src="'.$imageArray[0]['url'].'">';
+                                    } else {
+                                        echo '<img src="' . get_theme_file_uri('assets/img/img_not_available.jpg') . '">';
+                                    }
+                                }
+                                ?>
+                                <img src="<?php echo get_the_post_thumbnail_url(); ?>">
+                            </div>
+                            <div class="col-sm-8 product-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3 class="product-name"><?php the_title(); ?></h3>
+                                    </div>
+                                    <div class="col-md-6 left-side">
+                                        <?php if( $product_sale > 0 ) {
+                                            $new_price = $product_price - ($product_price) * $product_sale / 100;
+                                            echo '<p class="old-price">'.number_format( $product_price, 0,'', ',' ).' VNĐ</p>';
+                                            echo '<p class="new-price">'.number_format(  $new_price, 0,'', ',' ).' VNĐ</p>';
+                                        } else {
+                                            echo '<p class="new-price">'.process_price( $product_price ).'</p>';
+                                        } ?>
+                                        <div class="form-row">
+                                            <label for="quantity" class="col-sm-6 col-form-label">Số lượng: </label>
+                                            <div class="col-sm-6">
+                                                <input type="number"
+                                                       name="quantity"
+                                                       id="quantity-input"
+                                                       value = 1
+                                                       min="1" max="99"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="extra-list-head">Chi tiết</p>
+                                        <ul class="extra-content">
+                                            <?php
+                                            if($extra_maintain > 0){
+                                                echo '<li>Bảo hành: <b>'.$extra_maintain.' tháng</b></li>';
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if(count($extra_detail)){
+                                                foreach($extra_detail as $value){
+                                                    echo '<li>'.$value.'</li>';
+                                                }
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="action" value="process_order_form">
+                        <input type="hidden" name="target_order" value=<?php echo get_the_ID(); ?>>
+                        <input type="hidden" name="target_link" value=<?php echo get_the_permalink(); ?>>
+                        <div class="form-row">
+                            <label for="name" class="col-sm-4 col-form-label">Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       name="name"
+                                       id="name-input"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="email" class="col-sm-4 col-form-label">Email:</label>
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       class="form-control"
+                                       name="email"
+                                       id="email-input">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="phone" class="col-sm-4 col-form-label">Phone Number: </label>
+                            <div class="col-sm-8">
+                                <input type="text"
+                                       class="form-control"
+                                       name="phone"
+                                       id="phone-input">
+                            </div>
+                        </div>
+                        <p class="txt-italic">
+                            <small>
+                                Chúng tôi sẽ liên lạc trực tiếp với bạn theo thông tin liên hệ
+                                để xác nhận thông tin đặt hàng. Saric Shop chân thành cám ơn
+                                khách hàng đã tin tưởng ủng hộ.
+                            </small>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit"
+                               name="submit"
+                               class="btn btn--custom btn--orange btn--square"
+                               value="ĐẶT MUA NGAY">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Order Form - END -->
+
     <?php } ?>
 
 <?php

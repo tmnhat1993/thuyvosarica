@@ -67,3 +67,93 @@ body .slick-slide {
 
 .banner .cta, #banner .cta {
   margin-top: 20px; }
+
+.order-modal .modal-dialog,
+#orderModal .modal-dialog {
+  max-width: 800px;
+  margin: 4rem auto; }
+
+.order-modal form .col-form-label,
+#orderModal form .col-form-label {
+  text-align: right;
+  font-weight: 600; }
+
+.order-modal form .form-row,
+#orderModal form .form-row {
+  margin-bottom: 20px; }
+
+.order-modal .product-simple-content,
+#orderModal .product-simple-content {
+  margin-bottom: 20px; }
+  .order-modal .product-simple-content .product-img img,
+  #orderModal .product-simple-content .product-img img {
+    max-width: 100%; }
+  .order-modal .product-simple-content .product-content .product-name,
+  #orderModal .product-simple-content .product-content .product-name {
+    margin-bottom: 10px;
+    font-size: 22px;
+    border-bottom: 1px solid #ddd; }
+  .order-modal .product-simple-content .product-content .old-price,
+  #orderModal .product-simple-content .product-content .old-price {
+    margin-bottom: 0;
+    text-decoration: line-through; }
+  .order-modal .product-simple-content .product-content .new-price,
+  #orderModal .product-simple-content .product-content .new-price {
+    color: #e84118;
+    font-weight: 600;
+    margin-bottom: 15px; }
+  .order-modal .product-simple-content .product-content .left-side,
+  #orderModal .product-simple-content .product-content .left-side {
+    border-right: 1px solid #ddd; }
+    .order-modal .product-simple-content .product-content .left-side .col-form-label,
+    #orderModal .product-simple-content .product-content .left-side .col-form-label {
+      text-align: left; }
+  .order-modal .product-simple-content .product-content .extra-content,
+  #orderModal .product-simple-content .product-content .extra-content {
+    list-style: none;
+    padding: 0; }
+    .order-modal .product-simple-content .product-content .extra-content li,
+    #orderModal .product-simple-content .product-content .extra-content li {
+      font-size: 14px; }
+  .order-modal .product-simple-content .product-content .extra-list-head,
+  #orderModal .product-simple-content .product-content .extra-list-head {
+    font-size: 16px;
+    margin-bottom: 0;
+    font-weight: 600; }
+
+.order-modal .modal-header,
+#orderModal .modal-header {
+  background-color: #e84118;
+  color: #fff; }
+  .order-modal .modal-header .modal-title,
+  #orderModal .modal-header .modal-title {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600; }
+  .order-modal .modal-header *,
+  #orderModal .modal-header * {
+    color: #fff; }
+  .order-modal .modal-header .close,
+  #orderModal .modal-header .close {
+    opacity: 0.8; }
+    .order-modal .modal-header .close:hover,
+    #orderModal .modal-header .close:hover {
+      opacity: 1; }
+
+.order-modal .modal-footer .btn,
+#orderModal .modal-footer .btn {
+  font-size: 18px; }
+
+.success-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  z-index: 20; }
+  .success-modal .success-notification {
+    border-left: 4px solid #e84118;
+    padding: 30px 20px;
+    margin-top: 100px;
+    background-color: #eee; }

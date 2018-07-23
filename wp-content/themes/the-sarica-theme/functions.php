@@ -10,7 +10,7 @@ function the_sarica_files() {
 
     wp_enqueue_script('jq',
         get_theme_file_uri('assets/js/jquery.min.js'),
-        NULL, '1.0', true);
+        NULL, '1.0', false);
 
     wp_enqueue_script('main_script',
         get_theme_file_uri('assets/js/scripts-bundled.js'),
@@ -45,6 +45,9 @@ function the_sarica_files() {
         get_theme_file_uri('assets/css/styles.css'),
         NULL, microtime());
 
+    wp_localize_script( 'jq' , 'siteDetail', array(
+        'root_url' => get_site_url()
+    ) );
 }
 //</editor-fold>
 
@@ -56,10 +59,26 @@ function sarica_theme_feature(){
 }
 //</editor-fold>
 
-function process_price($price){
-    $temp_price = str_split(''.$price, 3);
-    $new_price = implode(',', $temp_price);
+add_action( 'admin_post_nopriv_process_order_form', 'process_form_data' );
+add_action( 'admin_post_process_order_form', 'process_form_data' );
+function process_form_data() {
+    status_header(200);
 
-    return $new_price;
+    $result = '';
+    $result = $result.'Mã Hàng: '.$_POST['target_order'].'<br>';
+    $result = $result.'Đường dẫn liên hệ: http:'.$_POST['target_link'].'<br>';
+    $result = $result.'Số lượng: '.$_POST['quantity'].'<br>';
+    $result = $result.'Tên khách hàng: '.$_POST['name'].'<br>';
+    $result = $result.'Số điện thoại: '.$_POST['phone'].'<br>';
+    $result = $result.'Email liên hệ: '.$_POST['email'].'<br>';
+
+    wp_insert_post(array(
+        'post_type'=>'order',
+        'post_title'=>'Đơn đặt hàng từ KH'.$_POST['name'],
+        'post_content'=> $result,
+    ), true);
+    wp_redirect(site_url('/success'));
+    exit;
+    //request handlers should die() when they complete their task
 }
 ?>

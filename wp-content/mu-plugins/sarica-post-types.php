@@ -54,14 +54,32 @@ function sarica_post_type(){
         //Supports Feature
         'supports' => array('excerpt', 'title', 'editor', 'thumbnail'),
 
-        // Rewrite Slugs
-        'rewrite' => array('slugs' => 'glasses'),
-
-        // Has Archive Page For All Watches
-        'has_archive' => true,
-
         // Watch Menu Icon
         'menu_icon' => 'dashicons-image-filter',
+    ));
+
+    register_post_type('order', array(
+        'public' => false,
+        'show_ui' => true,
+        // Labels assign
+        'labels' => array(
+            'name' => 'orders',
+            'add_new_item' => 'Add new order',
+            'edit_item' => 'Edit order',
+            'all_items' => 'All orders',
+            'singular_name' => 'order',
+        ),
+
+        'has_archive'=>false,
+
+        //Supports Feature
+        'supports' => array(),
+
+        // Rewrite Slugs
+        'rewrite' => array('slugs' => 'orders'),
+
+        // Watch Menu Icon
+        'menu_icon' => 'dashicons-welcome-write-blog',
     ));
 }
 

@@ -44,6 +44,11 @@
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -59,52 +64,23 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./the-sarica-theme/assets/js/scripts.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
+/******/ ({
 
-$(document).ready(function () {
-  $('.sale-slider').slick({
-    prevArrow: "<button type=\"button\" class=\"slick-prev\">\n            <i class=\"fa fa-angle-left\"></i>\n        </button>",
-    nextArrow: "<button type=\"button\" class=\"slick-next\">\n            <i class=\"fa fa-angle-right\"></i>\n        </button>"
-  });
-  var subMenuContainer = $('.sub-menu-container');
-  var currentShowSubMenu = false;
-  var finishShowMenu = true;
-  subMenuContainer.on('click', function (e) {
-    if (!currentShowSubMenu && finishShowMenu) {
-      finishShowMenu = false;
-      $(e.target).parents('.sub-menu-container').find('.navbar__sub-menu').slideDown('fast', function () {
-        finishShowMenu = true;
-        currentShowSubMenu = true;
-      });
-    } else {
-      if (finishShowMenu) {
-        finishShowMenu = false;
-        $('.navbar__sub-menu').slideUp('fast', function () {
-          finishShowMenu = true;
-          currentShowSubMenu = false;
-        });
-      }
-    }
-  });
-  $('.navbar__sub-menu').click(function (e) {
-    e.stopPropagation();
-  });
-  $('body').click(function (e) {
-    if (currentShowSubMenu && finishShowMenu) {
-      currentShowSubMenu = false;
-      finishShowMenu = false;
-      $('.navbar__sub-menu').slideUp('fast', function () {
-        finishShowMenu = true;
-      });
-    }
-  });
-});
+/***/ "./the-sarica-theme/assets/js/scripts.js":
+/*!***********************************************!*\
+  !*** ./the-sarica-theme/assets/js/scripts.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\n$(document).ready(function () {\n  $('.sale-slider').slick({\n    prevArrow: \"<button type=\\\"button\\\" class=\\\"slick-prev\\\">\\n            <i class=\\\"fa fa-angle-left\\\"></i>\\n        </button>\",\n    nextArrow: \"<button type=\\\"button\\\" class=\\\"slick-next\\\">\\n            <i class=\\\"fa fa-angle-right\\\"></i>\\n        </button>\"\n  });\n  var subMenuContainer = $('.sub-menu-container');\n  var currentShowSubMenu = false;\n  var finishShowMenu = true;\n  subMenuContainer.on('click', function (e) {\n    if (!currentShowSubMenu && finishShowMenu) {\n      finishShowMenu = false;\n      $(e.target).parents('.sub-menu-container').find('.navbar__sub-menu').slideDown('fast', function () {\n        finishShowMenu = true;\n        currentShowSubMenu = true;\n      });\n    } else {\n      if (finishShowMenu) {\n        finishShowMenu = false;\n        $('.navbar__sub-menu').slideUp('fast', function () {\n          finishShowMenu = true;\n          currentShowSubMenu = false;\n        });\n      }\n    }\n  });\n  $('.navbar__sub-menu').click(function (e) {\n    e.stopPropagation();\n  });\n  $('body').click(function (e) {\n    if (currentShowSubMenu && finishShowMenu) {\n      currentShowSubMenu = false;\n      finishShowMenu = false;\n      $('.navbar__sub-menu').slideUp('fast', function () {\n        finishShowMenu = true;\n      });\n    }\n  });\n\n  if ($(window).width() <= 769) {\n    var menuBar = $('.navbar__main-menu');\n    var expandBtn = $('.expand-menu');\n    expandBtn.click(function () {\n      menuBar.slideToggle('fast');\n      expandBtn.toggleClass('expaned');\n    });\n  }\n});\n\n//# sourceURL=webpack:///./the-sarica-theme/assets/js/scripts.js?");
 
 /***/ })
-/******/ ]);
+
+/******/ });

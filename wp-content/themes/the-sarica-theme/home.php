@@ -117,7 +117,7 @@ get_header(); ?>
             </div>
 
             <!-- Sidebar -->
-            <div class="col-sm-3 sidebar">
+            <div class="col-md-3 col-sm-12 sidebar">
 
                 <!-- New Product -->
                 <?php

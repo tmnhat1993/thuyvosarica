@@ -1,5 +1,8 @@
 body.admin-bar .nav-bar {
   top: 32px; }
+  @media (max-width: 768px) {
+    body.admin-bar .nav-bar {
+      top: 46px; } }
 
 body .slick-slide {
   height: auto; }

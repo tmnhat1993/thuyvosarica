@@ -2,7 +2,7 @@
 <html <?php language_attributes();  ?>>
     <head>
         <meta charset='<?php bloginfo('charset'); ?>'>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
 
         <title><?php bloginfo('name'); ?></title>
         <?php wp_head(); ?>
@@ -24,6 +24,7 @@
         <div class="container">
             <div class="row">
 
+                <!-- Logo Column -->
                 <div class="col-sm-2 navbar__logo-column">
                     <div class="logo-holder">
                         <a href="<?php echo site_url(); ?>">
@@ -31,12 +32,13 @@
                         </a>
                     </div>
                 </div>
+                <!-- Logo Column -END -->
 
                 <!-- Menu Column -->
                 <div class="col-sm-10 navbar__menu-column">
                     <ul class="navbar__main-menu">
                         <li class="navbar__main-menu-item">
-                            <a href="<?php echo site_url(); ?>">TRANG CHỦ</a>
+                            <a href="<?php echo esc_url(site_url()); ?>">TRANG CHỦ</a>
                         </li>
                         <li class="navbar__main-menu-item sub-menu-container">
                             <a>SẢN PHẨM</a>
@@ -57,8 +59,8 @@
                                                     <p>Đồng hồ từ các thương hiệu thời trang</p>
                                                 </div>
                                                 <div class="navbar__sub-menu__sub-menu-item">
-                                                    <a href=""<?php echo get_post_type_archive_link('glass'); ?>">Mắt Kính</a>
-                                                    <p>Đồng hồ từ các thương hiệu thời trang</p>
+                                                    <a href="<?php echo get_post_type_archive_link('glass'); ?>">Mắt Kiếng</a href="<?php echo get_post_type_archive_link('glass'); ?>">
+                                                    <p>Mắt kiếng trẻ trung và sành điệu</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,6 +106,12 @@
                     </ul>
                 </div>
                 <!-- Menu Column - END -->
+
+                <div class="expand-menu show-mobile">
+                    <span class="icon-holder">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
         </div>
     </div>

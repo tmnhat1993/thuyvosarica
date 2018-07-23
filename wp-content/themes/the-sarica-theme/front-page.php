@@ -43,7 +43,7 @@ $youtubeClip = get_field('youtube_clip');
     <div class="section mag-top-0">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-6">
                     <a href="<?php echo get_post_type_archive_link('watch'); ?>">
                         <div class="card-highlight">
                             <div class="card-highlight__img-holder">
@@ -55,7 +55,7 @@ $youtubeClip = get_field('youtube_clip');
                         </div>
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12 col-md-6">
 
                     <div class="card-highlight">
                         <a href="<?php echo get_post_type_archive_link('glass');?>">
@@ -557,7 +557,7 @@ $youtubeClip = get_field('youtube_clip');
     <div class="news-section jumbotron jumbotron-fluid section mag-bot-0 no-pad-top">
         <div class="container">
             <div class="row">
-                <div class="col-md-9 news-col">
+                <div class="col-sm-12 col-lg-9 news-col">
 
                     <!-- News Section -->
                     <?php
@@ -663,7 +663,7 @@ $youtubeClip = get_field('youtube_clip');
                     wp_reset_postdata();
                     ?>
                 </div>
-                <div class="col-md-3 sale-col">
+                <div class="col-sm-12 col-lg-3 sale-col">
                     <!-- New Product -->
                     <?php
                     $saleProduct = new WP_Query(array(

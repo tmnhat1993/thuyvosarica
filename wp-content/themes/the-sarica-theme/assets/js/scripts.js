@@ -43,7 +43,6 @@ $(document).ready(function(){
     e.stopPropagation()
   })
 
-
   $('body').click((e) => {
     if(currentShowSubMenu && finishShowMenu){
       currentShowSubMenu = false
@@ -54,4 +53,12 @@ $(document).ready(function(){
     }
   })
 
+  if($(window).width() <= 769){
+    let menuBar = $('.navbar__main-menu');
+    let expandBtn = $('.expand-menu');
+    expandBtn.click(()=>{
+      menuBar.slideToggle('fast');
+      expandBtn.toggleClass('expaned');
+    })
+  }
 });

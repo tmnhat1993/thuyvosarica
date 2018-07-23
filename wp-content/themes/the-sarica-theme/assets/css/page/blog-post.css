@@ -11,6 +11,9 @@
     height: 125px;
     overflow: hidden;
     position: relative; }
+    @media (max-width: 1024px) {
+      .related-post-holder .post-item .post-item__thumbnail {
+        height: 100px; } }
     .related-post-holder .post-item .post-item__thumbnail img {
       width: 100%;
       position: absolute;

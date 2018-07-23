@@ -18,6 +18,10 @@
       overflow: hidden;
       position: relative;
 
+      @media (max-width: 1024px){
+        height: 100px;
+      }
+
       img{
         width: 100%;
         position: absolute;

@@ -3,10 +3,10 @@ textarea{
 }
 
 a{
-  color: #e84118;
+  color: $red;
 
   &:hover{
-    color: #e84118;
+    color:$red;
     text-decoration: underline;
   }
 }

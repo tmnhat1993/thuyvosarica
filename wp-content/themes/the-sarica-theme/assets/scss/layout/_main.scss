@@ -1,5 +1,9 @@
 .section{
   margin: 45px 0;
+
+  @media(max-width: 768px){
+    margin: 20px 0;
+  }
 }
 
 p{
@@ -135,6 +139,10 @@ p{
   position: relative;
   cursor:pointer;
 
+  @media (max-width: 768px){
+    margin-bottom: 20px;
+  }
+
   .card-highlight__img-holder{
     position: relative;
     height: 180px;
@@ -199,6 +207,10 @@ p{
   padding: 55px 0 0;
   color: #555;
 
+  @media (max-width: 1024px){
+    padding: 25px 0 0;
+  }
+
   a{
     color: inherit;
     font-size: 16px;
@@ -211,6 +223,11 @@ p{
     font-weight: 600;
     position: relative;
 
+    @media (max-width: 1024px){
+      padding: .275rem 1.75rem .275rem;
+    }
+
+
     &:hover{
       color: #fff;
       text-decoration: none;
@@ -221,6 +238,9 @@ p{
     &:active{
       padding: .425rem 1.75rem .325rem;
       text-shadow: 1px 1px #000;
+      @media (max-width: 1024px){
+        padding: .325rem 1.75rem .225rem;
+      }
     }
   }
 }
@@ -242,6 +262,15 @@ p{
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+      }
+
+      @media (max-width: 768px){
+        height: 400px;
+        width: 70%;
+        margin: auto;
+        img {
+          height: 400px;
+        }
       }
     }
 
@@ -292,6 +321,13 @@ p{
     opacity: 0;
     transition: all 150ms 20ms ease-out;
 
+    @media(max-width: 768px) {
+      top: 35%;
+      color: #555;
+      font-size: 60px;
+      text-shadow: none;
+    }
+
     &.slick-next {
       right: 0px;
       transform: translateX(30px);
@@ -310,5 +346,20 @@ p{
         opacity: 1;
       }
     }
+  }
+}
+
+.container{
+  @media (max-width: 768px){
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.row {
+  @media (max-width: 768px) {
+    margin-right: 0px;
+    margin-left: 0px;
   }
 }

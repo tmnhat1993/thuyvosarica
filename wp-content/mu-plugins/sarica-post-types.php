@@ -81,6 +81,23 @@ function sarica_post_type(){
         // Watch Menu Icon
         'menu_icon' => 'dashicons-welcome-write-blog',
     ));
+
+    register_post_type('contact', array(
+       'public' => false,
+       'show_ui'=> true,
+       // Labels assign
+        'labels'=> array(
+            'name' => 'contact',
+            'add_new_item' => 'Add new item',
+            'edit_item' => 'Edit contact',
+            'all_items' => 'All contact information',
+            'singular_name' => 'Contact',
+        ),
+
+        'has_archive'=> false,
+
+        'menu_icon' => 'dashicons-phone',
+    ));
 }
 
 ?>

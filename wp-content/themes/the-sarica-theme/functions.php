@@ -59,6 +59,7 @@ function sarica_theme_feature(){
 }
 //</editor-fold>
 
+// Processing Order From Customer
 add_action( 'admin_post_nopriv_process_order_form', 'process_form_data' );
 add_action( 'admin_post_process_order_form', 'process_form_data' );
 function process_form_data() {
@@ -78,6 +79,28 @@ function process_form_data() {
         'post_content'=> $result,
     ), true);
     wp_redirect(site_url('/success'));
+    exit;
+    //request handlers should die() when they complete their task
+}
+
+add_action( 'admin_post_nopriv_process_contact_form', 'process_contact_data' );
+add_action( 'admin_post_process_contact_form', 'process_contact_data' );
+function process_contact_data() {
+    status_header(200);
+
+    $contactResult = '';
+    $contactResult = $contactResult.'Thông tin liên lạc từ khách hàng: '.$_POST['clientName'].'<br>';
+    $contactResult = $contactResult.'Email liên hệ: '.$_POST['clientEmail'].'<br>';
+    $contactResult = $contactResult.'Số điện thoại: '.$_POST['clientPhone'].'<br>';
+    $contactResult = $contactResult.'Nôi dung liên lạc: <br>'.$_POST['contactDetail'].'<br>';
+    $contactResult = $contactResult.'Gửi thông tin sản phẩm mới: '.$_POST['receiveDeal'].'<br>';
+
+
+    wp_insert_post(array(
+        'post_type'=>'contact',
+        'post_title'=>'Thông tin liên lạc từ KH '.$_POST['clientName'],
+        'post_content'=> $contactResult,
+    ), true);
     exit;
     //request handlers should die() when they complete their task
 }

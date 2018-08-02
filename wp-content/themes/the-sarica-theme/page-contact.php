@@ -94,15 +94,31 @@
                             <label for="emailAddress">Nội dung thông tin liên hệ</label>
                             <textarea class="form-control"
                                       name="contactDetail"
-                                      rows="5">
-                            </textarea>
+                                      rows="5"></textarea>
                             <!-- Textarea -->
 
                         </div>
                         <!-- Contact Detail -->
 
                         <!-- Receive Good Deal From Us -->
+                        <div class="form-check">
+                            <input type="checkbox"
+                                   class="form-check-input"
+                                   id="receiveDeal"
+                                   name = "receiveDeal">
+                            <label class="form-check-label" for="receiveDeal">
+                                Đăng ký nhận thông tin mới nhất của Saric shop qua email của bạn
+                            </label>
+                        </div>
                         <!-- Receive Good Deal From Us -->
+
+                        <hr>
+                        <div>
+                            <button type="submit"
+                                    class="btn btn--custom btn--orange btn--square">
+                                Gửi liên lạc
+                            </button>
+                        </div>
 
                     </div><!-- Main Contact Form -->
                 </form>

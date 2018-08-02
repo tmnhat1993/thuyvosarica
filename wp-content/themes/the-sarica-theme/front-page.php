@@ -55,8 +55,7 @@ $youtubeClip = get_field('youtube_clip');
                         </div>
                     </a>
                 </div>
-                <div class="col-md-12 col-md-6">
-
+                <div class="col-md-12 col-lg-6">
                     <div class="card-highlight">
                         <a href="<?php echo get_post_type_archive_link('glass');?>">
 

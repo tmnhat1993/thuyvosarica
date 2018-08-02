@@ -13,7 +13,7 @@
     }
 
     @media (max-width: 768px){
-      padding: 80px 40px 80px;
+      padding: 50px 30px 50px;
     }
 
     &.sm-padding{
@@ -24,6 +24,14 @@
   .banner__content{
     padding: 62px 45px;
     background-color: rgba(25,25,25,0.6);
+
+    @media (max-width: 1024px){
+      padding: 50px 35px;
+    }
+
+    @media (max-width: 768px){
+      padding: 40px 30px;
+    }
 
     .banner__call-to-action{
       margin-top: 35px;

@@ -12,13 +12,21 @@
         margin: 0;
         color: #999;
         font-size: 0.9rem; }
+      .news-content .news-content-item .custom-heading .sub-heading-news-content .col-sm-6 {
+        padding: 0; }
     .news-content .news-content-item .excerpt-content {
       padding: 15px 0 30px; }
+      @media (max-width: 480px) {
+        .news-content .news-content-item .excerpt-content {
+          padding: 15px 0 15px; } }
       .news-content .news-content-item .excerpt-content .excerpt-thumbnail .excerpt-thumbnail-holder img {
         width: 100%; }
       .news-content .news-content-item .excerpt-content .excerpt-context {
         padding-right: 25px;
         text-align: justify; }
+        @media (max-width: 480px) {
+          .news-content .news-content-item .excerpt-content .excerpt-context {
+            padding: 0px; } }
   .news-content .navigation-news {
     margin-top: 20px;
     background-color: #ddd;

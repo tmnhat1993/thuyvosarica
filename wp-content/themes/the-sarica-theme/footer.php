@@ -11,9 +11,10 @@
                 <div class="col-sm-6 col-md-3 item">
                     <h3>Liên kết</h3>
                     <ul>
-                        <li><a href="<?php echo site_url(); ?>">Company</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a href="<?php echo site_url(); ?>">Trang chủ</a></li>
+                        <li><a href="<?php echo site_url('/products'); ?>">Sản phẩm</a></li>
+                        <li><a href="<?php echo site_url('/blog'); ?>">Tin tức</a></li>
+                        <li><a href="<?php echo site_url('/contact'); ?>">Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-3 item text">
@@ -22,11 +23,14 @@
                         <li>Hotline: <b>094 3843868</b></li>
                     </ul>
                     <div class="social-holder">
-                        <a class="social-link"><i class="fa fa-facebook-square"></i></a>
-                        <a class="social-link"><i class="fa fa-youtube-play"></i></a>
-                        <a class="social-link">
-                            <img class="zalo"
-                                 src="<?php echo get_theme_file_uri('assets/img/icon/zaloicon2.png'); ?> ">
+                        <a class="social-link"
+                            href="https://www.facebook.com/thesarica/" href="_blank">
+                            <i class="fa fa-facebook-square"></i>
+                        </a>
+
+                        <a  class="social-link"
+                            href="https://www.youtube.com/channel/UCRVOBO9C8YfkeDuWE5MJUJA">
+                            <i class="fa fa-youtube-play"></i>
                         </a>
                     </div>
                 </div>

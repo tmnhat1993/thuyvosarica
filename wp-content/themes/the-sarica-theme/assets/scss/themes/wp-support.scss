@@ -43,6 +43,14 @@ body{
       cursor: pointer;
       background-color: #eee;
 
+      @media (max-width: 480px){
+        height: 38px;
+        line-height: 38px;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 8px 5px 0;
+      }
+
       a{
         color: inherit;
 

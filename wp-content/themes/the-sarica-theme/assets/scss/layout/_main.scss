@@ -27,6 +27,10 @@ p{
   position: relative;
   overflow: visible;
 
+  @media (max-width: 480px){
+    margin: 0px auto 30px;
+  }
+
   &:after{
     content: '';
     width: 50px;
@@ -157,6 +161,11 @@ p{
       left: 50%;
       transform: translate(-50%, -50%);
     }
+
+
+    @media (max-width: 480px){
+      height: 150px;
+    }
   }
 
   .card-highlight__content-holder{
@@ -270,6 +279,15 @@ p{
         margin: auto;
         img {
           height: 400px;
+        }
+      }
+
+      @media (max-width: 480px){
+        height: 280px;
+        width: 100%;
+
+        img {
+          height: 280px;
         }
       }
     }
